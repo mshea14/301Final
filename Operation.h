@@ -19,6 +19,7 @@ class Operation
 		string IntToHex(int num); //converts int to a string representing hexadecimal value
 		int cvtNumString2Number(string s); //converts hex string to int
 		string BinaryToHex(string binary); //returns hex value of binary string 
+		string HexToBinary(string hex); //takes a hex string and returns a binary string 
 		string SignExtend(string str); 
 		string ShiftLeftTwo(string address);
 		void SetDebugAndFile(bool debug, bool toFile);
