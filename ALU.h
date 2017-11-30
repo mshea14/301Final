@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
-#include "operation.h"
+#include "Operation.h"
 
 using namespace std;
 
@@ -21,17 +21,19 @@ private:
 	string operand1;
 	string operand2;
 	bool debug;
+	bool writeToFile;
 
 public:
 
 	//Default Constructor
 	ALU();
 
+	void compareLessThan();
 	void setOperand1(string operand);
 	void setOperand2(string operand);
 	string getOutput();
 	bool getComparedResult();
-	void setDebug(bool value);
+	void SetDebugAndFile(bool toDebug, bool toFile);
 
 
 };
