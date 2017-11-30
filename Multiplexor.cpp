@@ -2,10 +2,7 @@
 //* Date:   October 28 2017
 
 #include "Multiplexor.h"
-
-class Multiplexor
-{
-	
+#include "Operation.h"
 
 	Multiplexor::Multiplexor()
 	{
@@ -28,9 +25,10 @@ class Multiplexor
 	//the 1 input to multiplexor
 	void Multiplexor::setInputOne(string input)
 	{
+		Operation o;
 		if(debug)
 		{
-			cout << "1 input to Multiplexor: " << Operation.HexToBinary(input) << endl;
+			cout << "1 input to Multiplexor: " << o.HexToBinary(input) << endl;
 		}
 		
 		input1 = input;
@@ -40,9 +38,10 @@ class Multiplexor
 	//the 0 input to multiplexor
 	void Multiplexor::setInputZero(string input)
 	{
+		Operation o;
 		if(debug)
 		{
-			cout << "0 input to Multiplexor" << Operation.HexToBinary(input) << endl;
+			cout << "0 input to Multiplexor" << o.HexToBinary(input) << endl;
 		}
 		
 		input0 = input;
@@ -52,22 +51,24 @@ class Multiplexor
 	//print out output
 	string Multiplexor::getOutput()
 	{
+		Operation o;
+
 		if(debug)
 		{
-			cout << "Multiplexor output: " << Operation.HexToBinary(output) << endl;
+			cout << "Multiplexor output: " << o.HexToBinary(output) << endl;
 		}
 
 		return output;
 	}
 
-	SetDebugAndFile(bool toDebug, bool toFile)
+	void Multiplexor::SetDebugAndFile(bool toDebug, bool toFile)
 	{
 		debug = toDebug;
 		writeToFile = toFile;
 	}
 
 	//execute the multiplexor
-	void execute()
+	void Multiplexor::execute()
 	{	
 		if(control)
 		{
@@ -79,6 +80,6 @@ class Multiplexor
 		}
 
 	}
-	s
+	
 
-}
+

@@ -2,6 +2,10 @@
 //* Date:   October 28 2017
 #ifndef __MULTIPLEXER_  // look to see whether __MYCONTAINER_H__ is defined
 #define __MULTIPLEXER_  // if it's not, define it -- will prevent multiple includes
+#include <string>
+#include <iostream>
+
+using namespace std;
 
 class Multiplexor
 {
@@ -24,5 +28,5 @@ public:
 	void SetDebugAndFile(bool debug, bool toFile);
 	
 
-}
+};
 #endif
