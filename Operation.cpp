@@ -4,8 +4,6 @@
 
 #include "Operation.h"
 
-Operation
-{
 
 
 	//taking an int and converting it to a hexadecimal string 
@@ -133,4 +131,3 @@ Operation
 	}
 
 
-}
