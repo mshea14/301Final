@@ -53,3 +53,68 @@ string Instruction::getString()
   
 }
 
+INS Instruction::getControlValues(){
+  INS controlValues;
+
+  if(this-> myOpcode == 000000){
+    controlValues.RegDest="1";
+    controlValues.ALUSrc="0";
+    controlValues.MemtoReg="0";
+    controlValues.Regwrite="1";
+    controlValues.MemRead="0";
+    controlValues.MemWrite="0";
+    controlValues.Branch="0";
+    controlValues.ALUOp1="1";
+    controlValues.ALUOp0="0";
+  } else if(this-> myOpcode == 100011){
+    controlValues.RegDest="0";
+    controlValues.ALUSrc="1";
+    controlValues.MemtoReg="1";
+    controlValues.Regwrite="1";
+    controlValues.MemRead="1";
+    controlValues.MemWrite="0";
+    controlValues.Branch="0";
+    controlValues.ALUOp1="0";
+    controlValues.ALUOp0="0";
+  }else if(this-> myOpcode == 101011){
+    controlValues.RegDest="X";
+    controlValues.ALUSrc="1";
+    controlValues.MemtoReg="X";
+    controlValues.Regwrite="0";
+    controlValues.MemRead="0";
+    controlValues.MemWrite="1";
+    controlValues.Branch="0";
+    controlValues.ALUOp1="0";
+    controlValues.ALUOp0="0";
+  }else if(this-> myOpcode == 000100){
+    controlValues.RegDest="X";
+    controlValues.ALUSrc="0";
+    controlValues.MemtoReg="X";
+    controlValues.Regwrite="0";
+    controlValues.MemRead="0";
+    controlValues.MemWrite="0";
+    controlValues.Branch="1";
+    controlValues.ALUOp1="0";
+    controlValues.ALUOp0="1";
+  }else if(this-> myOpcode == 001000){
+    controlValues.RegDest="0";
+    controlValues.ALUSrc="1";
+    controlValues.MemtoReg="0";
+    controlValues.Regwrite="1";
+    controlValues.MemRead="0";
+    controlValues.MemWrite="0";
+    controlValues.Branch="0";
+    controlValues.ALUOp1="0";
+    controlValues.ALUOp0="0";
+  }else if(this-> myOpcode == 000010){
+    controlValues.RegDest="X";
+    controlValues.ALUSrc="X";
+    controlValues.MemtoReg="X";
+    controlValues.Regwrite="0";
+    controlValues.MemRead="0";
+    controlValues.MemWrite="0";
+    controlValues.Branch="0";
+    controlValues.ALUOp1="X";
+    controlValues.ALUOp0="X";
+  }
+}

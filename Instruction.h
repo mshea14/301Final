@@ -12,6 +12,19 @@
 
 
 class Instruction{
+    struct INS{
+
+      string RegDst;
+      string ALUSrc;
+      string MemtoReg;
+      string Regwrite;
+      string MemRead;
+      string MemWrite;
+      string Branch;
+      string ALUOp1;
+      string ALUOp0;
+    }
+
  public:
   Instruction();
 
@@ -23,11 +36,12 @@ class Instruction{
   void setValues(Opcode op, Register rs, Register rt, Register rd, int imm);
 
   // Returns the various fields for the Instruction
-  Opcode getOpcode()   { return myOpcode;}
+  Opcode getOpcode()   { return myOpcode;};
   Register getRS()     { return myRS; };
   Register getRD()     { return myRD; };
   Register getRT()     { return myRT; };
   int getImmediate()   { return myImmediate; };
+  INS getControlValues() ;
 
   // Returns a string which represents all of the fields 
   string getString();
@@ -44,6 +58,7 @@ class Instruction{
   Register myRT;
   Register myRD;
   int myImmediate;
+  INS myControlValues;
 
   string myEncoding;
 };
