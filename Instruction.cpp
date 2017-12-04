@@ -53,9 +53,11 @@ string Instruction::getString()
   
 }
 
+
 INS Instruction::getControlValues(){
   INS controlValues;
 
+  //RTYPE 
   if(this-> myOpcode == 000000){
     controlValues.RegDest="1";
     controlValues.ALUSrc="0";
@@ -66,6 +68,7 @@ INS Instruction::getControlValues(){
     controlValues.Branch="0";
     controlValues.ALUOp1="1";
     controlValues.ALUOp0="0";
+    controlValues.Jump="0";
   } else if(this-> myOpcode == 100011){
     controlValues.RegDest="0";
     controlValues.ALUSrc="1";
@@ -76,6 +79,7 @@ INS Instruction::getControlValues(){
     controlValues.Branch="0";
     controlValues.ALUOp1="0";
     controlValues.ALUOp0="0";
+    controlValues.Jump="0";
   }else if(this-> myOpcode == 101011){
     controlValues.RegDest="X";
     controlValues.ALUSrc="1";
@@ -86,6 +90,7 @@ INS Instruction::getControlValues(){
     controlValues.Branch="0";
     controlValues.ALUOp1="0";
     controlValues.ALUOp0="0";
+    controlValues.Jump="0";
   }else if(this-> myOpcode == 000100){
     controlValues.RegDest="X";
     controlValues.ALUSrc="0";
@@ -96,6 +101,7 @@ INS Instruction::getControlValues(){
     controlValues.Branch="1";
     controlValues.ALUOp1="0";
     controlValues.ALUOp0="1";
+    controlValues.Jump="0";
   }else if(this-> myOpcode == 001000){
     controlValues.RegDest="0";
     controlValues.ALUSrc="1";
@@ -106,7 +112,10 @@ INS Instruction::getControlValues(){
     controlValues.Branch="0";
     controlValues.ALUOp1="0";
     controlValues.ALUOp0="0";
-  }else if(this-> myOpcode == 000010){
+    controlValues.Jump="0";
+  }
+  //jump
+  else if(this-> myOpcode == 000010){
     controlValues.RegDest="X";
     controlValues.ALUSrc="X";
     controlValues.MemtoReg="X";
@@ -116,5 +125,6 @@ INS Instruction::getControlValues(){
     controlValues.Branch="0";
     controlValues.ALUOp1="X";
     controlValues.ALUOp0="X";
+    controlValues.Jump="1";
   }
 }

@@ -23,6 +23,7 @@ class Instruction{
       string Branch;
       string ALUOp1;
       string ALUOp0;
+      string Jump;
     }
 
  public:
@@ -51,6 +52,9 @@ class Instruction{
 
   // Returns string representing the 32 binary encoding of MIPS instruction
   string getEncoding() { return myEncoding; };
+  
+  //return string of assembly instruction  
+  string getAssembly(Instruction i);
 
  private:
   Opcode myOpcode;

@@ -1,4 +1,7 @@
 #include "ASMParser.h"
+#include "Parser.h"
+
+
 
 ASMParser::ASMParser(string filename)
   // Specify a text file containing MIPS assembly instructions. Function
@@ -346,4 +349,21 @@ string ASMParser::encode(Instruction i)
 
   return s;
 }
+
+Instruction[] ASMParser::createArrayOfInstructions()
+{
+  //Iterate through instructions, printing each encoding.
+  Instruction[] instructionList = new Instruction[200];
+  i = parser->getNextInstruction();
+  while( i.getOpcode() != UNDEFINED){
+    instructionList[j] = i;
+    j++;
+    i = parser->getNextInstruction();
+  }
+  return instructionList;
+
+}
+
+void printInstruction()
+
 
