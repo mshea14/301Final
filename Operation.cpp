@@ -11,7 +11,7 @@
 	{
 		stringstream stream;
 		stream << hex << num;
-		return string result( stream.str() );
+		return string result(stream.str());
 	}
 
 
@@ -94,7 +94,7 @@
 
 	}
 
-	Operation::SetDebugAndFile(bool toDebug, bool toFile)
+	void Operation::SetDebugAndFile(bool toDebug, bool toFile)
 	{
 		debug = toDebug;
 		writeToFile = toFile;
@@ -105,9 +105,9 @@
 	string Operation::HexToBinary(string hex)
 	{
 		string sReturn = "";
-			for (int i = 2; i < h.length (); ++i)
+			for (int i = 2; i < hex.length (); ++i)
 			{
-				switch (sHex [i])
+				switch (hex [i])
 				{
 					case '0': sReturn.append ("0000"); break;
 					case '1': sReturn.append ("0001"); break;

@@ -27,6 +27,11 @@ class ASMParser{
   // checks syntactic correctness of file and creates a list of Instructions.
   ASMParser(string filename);
 
+  //prints out current instruction
+  void printAllInstructions();
+
+  //prints out all instructions
+
   // Returns true if the file specified was syntactically correct.  Otherwise,
   // returns false.
   bool isFormatCorrect() { return myFormatCorrect; };

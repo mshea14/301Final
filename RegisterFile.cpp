@@ -7,7 +7,7 @@ RegisterFile::RegisterFile(){
 
 }
 
-RegisterFile::addToFile(string s){
+void RegisterFile::addToFile(string s){
 	myContents.push_back(s);
 }
 

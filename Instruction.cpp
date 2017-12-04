@@ -54,12 +54,12 @@ string Instruction::getString()
 }
 
 
-INS Instruction::getControlValues(){
+Instruction::INS Instruction::getControlValues(){
   INS controlValues;
 
   //RTYPE 
-  if(this-> myOpcode == 000000){
-    controlValues.RegDest="1";
+  if((int)this-> myOpcode==000000){
+    controlValues.RegDst="1";
     controlValues.ALUSrc="0";
     controlValues.MemtoReg="0";
     controlValues.Regwrite="1";
@@ -69,8 +69,8 @@ INS Instruction::getControlValues(){
     controlValues.ALUOp1="1";
     controlValues.ALUOp0="0";
     controlValues.Jump="0";
-  } else if(this-> myOpcode == 100011){
-    controlValues.RegDest="0";
+  } else if((int)this-> myOpcode == 100011){
+    controlValues.RegDst="0";
     controlValues.ALUSrc="1";
     controlValues.MemtoReg="1";
     controlValues.Regwrite="1";
@@ -80,8 +80,8 @@ INS Instruction::getControlValues(){
     controlValues.ALUOp1="0";
     controlValues.ALUOp0="0";
     controlValues.Jump="0";
-  }else if(this-> myOpcode == 101011){
-    controlValues.RegDest="X";
+  }else if((int)this-> myOpcode == 101011){
+    controlValues.RegDst="X";
     controlValues.ALUSrc="1";
     controlValues.MemtoReg="X";
     controlValues.Regwrite="0";
@@ -91,8 +91,8 @@ INS Instruction::getControlValues(){
     controlValues.ALUOp1="0";
     controlValues.ALUOp0="0";
     controlValues.Jump="0";
-  }else if(this-> myOpcode == 000100){
-    controlValues.RegDest="X";
+  }else if((int)this-> myOpcode == 000100){
+    controlValues.RegDst="X";
     controlValues.ALUSrc="0";
     controlValues.MemtoReg="X";
     controlValues.Regwrite="0";
@@ -102,8 +102,8 @@ INS Instruction::getControlValues(){
     controlValues.ALUOp1="0";
     controlValues.ALUOp0="1";
     controlValues.Jump="0";
-  }else if(this-> myOpcode == 001000){
-    controlValues.RegDest="0";
+  }else if((int)this-> myOpcode == 001000){
+    controlValues.RegDst="0";
     controlValues.ALUSrc="1";
     controlValues.MemtoReg="0";
     controlValues.Regwrite="1";
@@ -115,8 +115,8 @@ INS Instruction::getControlValues(){
     controlValues.Jump="0";
   }
   //jump
-  else if(this-> myOpcode == 000010){
-    controlValues.RegDest="X";
+  else if((int)this-> myOpcode == 000010){
+    controlValues.RegDst="X";
     controlValues.ALUSrc="X";
     controlValues.MemtoReg="X";
     controlValues.Regwrite="0";
@@ -127,4 +127,6 @@ INS Instruction::getControlValues(){
     controlValues.ALUOp0="X";
     controlValues.Jump="1";
   }
+
+  return controlValues;
 }

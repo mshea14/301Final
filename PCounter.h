@@ -22,5 +22,6 @@ public:
 	void setAddress(string newAddress);
 	string getAddress();
 	void setDebugAndWriteToFile(bool toDebug, bool toFile);
-}
+};
 
+#endif

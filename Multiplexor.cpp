@@ -25,7 +25,7 @@
 	//the 1 input to multiplexor
 	void Multiplexor::setInputOne(string input)
 	{
-		Operation o;
+		
 		if(debug)
 		{
 			cout << "1 input to Multiplexor: " << o.HexToBinary(input) << endl;
@@ -38,7 +38,7 @@
 	//the 0 input to multiplexor
 	void Multiplexor::setInputZero(string input)
 	{
-		Operation o;
+	
 		if(debug)
 		{
 			cout << "0 input to Multiplexor" << o.HexToBinary(input) << endl;
@@ -51,7 +51,7 @@
 	//print out output
 	string Multiplexor::getOutput()
 	{
-		Operation o;
+
 
 		if(debug)
 		{

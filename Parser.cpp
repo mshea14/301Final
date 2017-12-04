@@ -1,6 +1,6 @@
 #include "Parser.h"
 #include "RegisterFile.h"
-#include "DataMemory"
+#include "DataMemory.h"
 #include "ConfigFile.h"
 #include "math.h"
 #include "string.h"

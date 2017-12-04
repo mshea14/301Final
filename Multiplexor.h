@@ -4,6 +4,7 @@
 #define __MULTIPLEXER_  // if it's not, define it -- will prevent multiple includes
 #include <string>
 #include <iostream>
+#include "Operation.h"
 
 using namespace std;
 
@@ -16,6 +17,7 @@ private:
 	bool debug;
 	bool writeToFile;
 	bool control;
+	Operation o;
 
 
 public:
