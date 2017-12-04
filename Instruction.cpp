@@ -8,10 +8,10 @@ Instruction::Instruction()
   myRS = myRT = myRD = NumRegisters;
 }
 
-Instruction::Instruction(Opcode op, Register rs, Register rt, Register rd, int imm)
+Instruction::Instruction(string opcode, string input1, string input2, string input3)
 // You can specify all the fields to initialize the Instruction
 {
-  setValues(op, rs, rt, rd, imm);
+  //DECIDE WHAT INSTRUCTION
 }
 
 void Instruction::setValues(Opcode op, Register rs, Register rt, Register rd, int imm)
