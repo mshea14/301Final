@@ -12,8 +12,8 @@ ALU::ALU(){
 
 string ALU::add(string operand1, string operand2){
 	if(debug){
-		cout << "0th input to multiplexor: " << operand1 << endl;
-		cout << "1st input to multiplexor: " << operand2 << endl;
+		cout << "0th input to multiplexor: " << BinaryToHex(operand1) << endl;
+		cout << "1st input to multiplexor: " << BinaryToHex(operand2) << endl;
 	}
 	
 	int temp1 = cvtNumString2Number(operand1);
@@ -21,7 +21,7 @@ string ALU::add(string operand1, string operand2){
 
 	int sum = temp1 + temp2;
 
-	output = cvtNumString2Number(sum);
+	output = IntToHex(sum);
 
 	if(debug) cout << "Output of add ALU: " << output << endl;
 
@@ -32,8 +32,8 @@ string ALU::add(string operand1, string operand2){
 string ALU::sub(string operand1, string operand2){
 
 	if(debug){
-		cout << "0th input to multiplexor: " << operand1 << endl;
-		cout << "1st input to multiplexor: " << operand2 << endl;
+		cout << "0th input to multiplexor: " << BinaryToHex(operand1) << endl;
+		cout << "1st input to multiplexor: " << BinaryToHex(operand2) << endl;
 	}
 	
 	int temp1 = cvtNumString2Number(operand1);
@@ -41,7 +41,7 @@ string ALU::sub(string operand1, string operand2){
 
 	int sum = temp1 - temp2;
 
-	output = cvtNumString2Number(sum);
+	output = IntToHex(sum);
 
 	if(debug) cout << "Output of subtract ALU: " << output << endl;
 
@@ -68,10 +68,10 @@ void ALU::compareLessThan(){
 		if(debug){
 			cout << "Operand 1 is smaller than Operand 2" << endl;
 		}
-		output = BinaryToHex(cvtNumString2Number(1)); //1 = true
+		output = BinaryToHex(cvtNumString2Number("0x00000001")); //1 = true
 	}else{
 		if(debug){
-			output = BinaryToHex(cvtNumString2Number(0)); //0 = false
+			output = BinaryToHex(cvtNumString2Number("0x00000000")); //0 = false
 		}
 	}
 }
