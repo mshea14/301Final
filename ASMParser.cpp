@@ -364,6 +364,10 @@ Instruction[] ASMParser::createArrayOfInstructions()
 
 }
 
-void printInstruction()
+void ASMParser::printAllInstructions()
+{
+
+}
+
 
 

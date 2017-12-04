@@ -11,6 +11,14 @@
 #include "PCounter.h"
 #include <iostream> 
 
+
+void fetch(Instruction i);
+void decode(Instruction i);
+void execute(Instruction i);
+void writback(Instruction i);
+void memory(Instruction i);
+
+
 int main(int argc, const char * argv[]) {
 	
 	//validate input 
@@ -47,6 +55,14 @@ int main(int argc, const char * argv[]) {
 	Multiplexor jumpOrAddMux; //Mux
 
 
+	string opcode;
+	string rs;
+	string rt;
+	string rd;
+	string immediate;
+	string jumpAmount;
+
+
 	 if(parser->isFormatCorrect() == false){
 	    cerr << "Format of input file is incorrect " << endl;
 	    exit(1);
@@ -70,22 +86,19 @@ int main(int argc, const char * argv[]) {
 	jumpOrAddMux.SetDebugAndFile(configFile.myDebugMode, configFile.myWriteToFile);
 
 
-	//Iterate through instructions, printing each encoding.
-	i = parser->getNextInstruction();
-	while( i.getOpcode() != UNDEFINED){
-	   
-
-
-		i = parser->getNextInstruction();
-	}
+	
 
 	while(true)
-	{
+	{	
+		//GET CURRENT INSTRUCTION!
+		public Instruction i;
+
 		 //first print out memory and register
 		if(configFile.myPrintMemContent)  
 		{
 			dataMem.printDataMemory();
 			registerFile.printRegisterFile();
+			//PRINT OUT ALL INSTRUCTIONS
 
 		}	
 
@@ -95,55 +108,12 @@ int main(int argc, const char * argv[]) {
 			//print out current instruction
 		}
 
-	
-	    //get control values 
-		INS controlLines = i.getControlValues();
-		cout <<  "Control Line - RegDst: 0x" << controlLines.RegDest << endl;
-		cout <<  "Control Line - ALUSrc: 0x" << controlLines.ALUSrc << endl;
-		cout <<  "Control Line - MemToReg: 0x" << controlLines.MemtoReg << endl;
-		cout <<  "Control Line - RegWrite: 0x" << controlLines.Regwrite << endl;
-		cout <<  "Control Line - MemRead: 0x" << controlLines.MemRead << endl;
-		cout <<  "Control Line - MemWrite: 0x" << controlLines.MemWrite << endl;
-		cout <<  "Control Line - Branch: 0x" << controlLines.Branch << endl;
-		cout <<  "Control Line - ALUOp1: 0x" << controlLines.ALUOp1 << endl;
-		cout <<  "Control Line - ALUOp0: 0x" <<controlLines.ALUOp0 << endl;
-		cout << "Control Line - Jump: 0x" <<controlLines.ALUOp0 << endl;
-
-
-   	
-		//mux/ALU
-
-
-		//fetching instruction
-	    if(configFile.myDebugMode) 
-		{
-			cout << "Incrementing PC" << endl;
-		}
-
-		aluAdd.setOperand1(programCounter.getAddress());
-		aluAdd.setOperand2("4");
-		aluAdd.add(programCounter.getAddress(), "4");
-	   	programCounter.setAdress(aluAdd.getOutput());
-	    
-	    
-
-
-		Opcode o = i.getOpcode();
-		//RTYPE
-		if(o==000000)
-		{
-			if(getFunctField(o)==100000)
-			{
-
-			}
-		}
-
-
-
-
-	 
-		//Update memory/register 
-
+		fetch(i);
+		decode(i);
+		execute(i);
+		memory(i);
+		writeback(i);
+	  
 
 		//if print memory contents is true, print out memory, register files
 		if(configFile.myPrintMemContent)  
@@ -162,3 +132,75 @@ int main(int argc, const char * argv[]) {
 
 
 }
+
+void fetch(Instruction i)
+{
+	if(configFile.myDebugMode) 
+	{
+		cout << "Incrementing PC" << endl;
+	}
+
+	aluAdd.setOperand1(programCounter.getAddress());
+	aluAdd.setOperand2("00000000000000000000000000000100");
+	aluAdd.add(programCounter.getAddress(), "00000000000000000000000000000100");
+	programCounter.setAdress(aluAdd.getOutput());
+	    
+	    
+	if(configFile.myDebugMode) 
+	{
+		cout << "Input to Multiplexor 5 Operand 0 set" << endl;
+	}
+	branchOrAddMux.setInputZero(programCounter.getAddress());
+
+
+	if(configFile.myDebugMode) 
+	{
+		cout << "Input to ALU Add and Result Operand 0 set" << endl;
+	}
+	aluAddandResult.setOperand1(programCounter.getAddress());
+
+	opcode = i.getOpcode();
+	rs = i.getRs();
+	rt = i.getRt();
+	rd = i.getRd();
+	immediate = i.getImmediate();
+	jumpAmount = i.getJumpAmount();
+
+}
+
+void decode(Instruction i)
+{
+	//get control values 
+	INS controlLines = i.getControlValues();
+	cout <<  "Control Line - RegDst: 0x" << controlLines.RegDest << endl;
+	cout <<  "Control Line - ALUSrc: 0x" << controlLines.ALUSrc << endl;
+	cout <<  "Control Line - MemToReg: 0x" << controlLines.MemtoReg << endl;
+	cout <<  "Control Line - RegWrite: 0x" << controlLines.Regwrite << endl;
+	cout <<  "Control Line - MemRead: 0x" << controlLines.MemRead << endl;
+	cout <<  "Control Line - MemWrite: 0x" << controlLines.MemWrite << endl;
+	cout <<  "Control Line - Branch: 0x" << controlLines.Branch << endl;
+	cout <<  "Control Line - ALUOp1: 0x" << controlLines.ALUOp1 << endl;
+	cout <<  "Control Line - ALUOp0: 0x" <<controlLines.ALUOp0 << endl;
+	cout << "Control Line - Jump: 0x" <<controlLines.ALUOp0 << endl;	
+
+}
+void execute(Instruction i)
+{
+
+
+}
+void memory(Instruction i)
+{
+
+}
+
+void writeback(Instruction i)
+{
+
+}
+
+
+
+
+
+
