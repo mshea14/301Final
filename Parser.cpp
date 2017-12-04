@@ -1,7 +1,4 @@
 #include "Parser.h"
-#include "RegisterFile.h"
-#include "DataMemory.h"
-#include "ConfigFile.h"
 #include "math.h"
 #include "string.h"
 #include <stringstream>
@@ -72,7 +69,7 @@ Parser::Parser(){
     }
     return &RegisterFile;
 }
-DataMemory Parser::parseMemory(string filename){
+&DataMemory Parser::parseMemory(string filename){
 
 	ifstream in;
   	in.open(filename.c_str());

@@ -22,7 +22,7 @@ private:
 
 public:
 	Multiplexor();
-	void setControl(bool control); 
+	void setControl(string 1or0); 
 	void setInputOne(string input);
 	void setInputZero(string input);
 	string getOutput();

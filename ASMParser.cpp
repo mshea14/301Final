@@ -15,7 +15,7 @@ ASMParser::ASMParser(string filename)
   ifstream in;
   in.open(filename.c_str());
   if(in.bad()){
-    myFormatCorrect = false;
+   cout << "Bad File" << endl;
   }
   else{
     string line;

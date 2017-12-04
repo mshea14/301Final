@@ -5,6 +5,9 @@ using namespace std;
 #include <vector>
 #include <sstream>
 #include <stdlib.h>
+#include "ConfigFile.h"
+#include "RegisterFile.h"
+#include "Instruction.h"
 
 class Parser{
 
@@ -17,5 +20,7 @@ class Parser{
 	&RegisterFile parseRegister(string filename);
 
 	&DataMemory parseMemory(string filename);
+
+	Instruction parseASMFile(string filename);
 
 };

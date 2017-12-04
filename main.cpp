@@ -18,6 +18,28 @@ void execute(Instruction i);
 void writback(Instruction i);
 void memory(Instruction i);
 
+ALU aluAdd; //ALU 1
+ALU aluAddandResult; //ALU 2
+ALU aluALUandResult; //ALU 3
+Multiplexor registerMux;  //Mux
+Multiplexor registerOrImmMux;  //Mux
+Multiplexor memOrALUMux; //Mux
+Multiplexor branchOrAddMux; //Mux
+Multiplexor jumpOrAddMux; //Mux
+RegisterFile registerFile;
+ConfigFile configFile;
+DataMemory dataMem;
+
+//create new operation
+Operation o;
+
+string opcode;
+string rs;
+string rt;
+string rd;
+string immediate;
+string jumpAmount;
+PCounter programCounter = new PCounter();
 
 int main(int argc, const char * argv[]) {
 	
@@ -29,38 +51,17 @@ int main(int argc, const char * argv[]) {
 
   	
   	//create config file
-	ConfigFile configFile = parseConfigFile(argv[2]);
+	configFile = parseConfigFile(argv[2]);
 
 	//create register file
-	RegisterFile registerFile = parseRegister(configFile.myRegisterInput);
+	registerFile = parseRegister(configFile.myRegisterInput);
 
 	//create Data Memory
-	DataMemory dataMem = parseMemory(configFile.myMemoryInput);
+	dataMem = parseMemory(configFile.myMemoryInput);
 
 	//create new parser
 	parser = new ASMParser(configFile.myProgramInput);
 
-	//create new operation
-	Operation o;
-
-
-
-	ALU aluAdd; //ALU 1
-	ALU aluAddandResult; //ALU 2
-	ALU aluALUandResult; //ALU 3
-	Multiplexor registerMux;  //Mux
-	Multiplexor registerOrImmMux;  //Mux
-	Multiplexor memOrALUMux; //Mux
-	Multiplexor branchOrAddMux; //Mux
-	Multiplexor jumpOrAddMux; //Mux
-
-
-	string opcode;
-	string rs;
-	string rt;
-	string rd;
-	string immediate;
-	string jumpAmount;
 
 
 	 if(parser->isFormatCorrect() == false){
@@ -71,7 +72,6 @@ int main(int argc, const char * argv[]) {
 	cout << "Print memory contents set to: " << configFile.myPrintMemContent << endl;
 	
 	Instruction i;
-	PCounter programCounter = new PCounter();
 
 
 	//SET IF DEBUG OR WRITE TO FILE
@@ -172,6 +172,8 @@ void decode(Instruction i)
 {
 	//get control values 
 	INS controlLines = i.getControlValues();
+
+	//print control lines
 	cout <<  "Control Line - RegDst: 0x" << controlLines.RegDest << endl;
 	cout <<  "Control Line - ALUSrc: 0x" << controlLines.ALUSrc << endl;
 	cout <<  "Control Line - MemToReg: 0x" << controlLines.MemtoReg << endl;
@@ -181,7 +183,28 @@ void decode(Instruction i)
 	cout <<  "Control Line - Branch: 0x" << controlLines.Branch << endl;
 	cout <<  "Control Line - ALUOp1: 0x" << controlLines.ALUOp1 << endl;
 	cout <<  "Control Line - ALUOp0: 0x" <<controlLines.ALUOp0 << endl;
-	cout << "Control Line - Jump: 0x" <<controlLines.ALUOp0 << endl;	
+	cout << "Control Line - Jump: 0x" <<controlLines.ALUOp0 << endl;
+
+	//send signals 
+
+	if(configFile.myDebugMode) cout << "Setting Multiplexor 1" << endl;
+	if(!controlLines.RegDest.equasl("X")) cout << "RegDest not used" << endl;
+
+	registerMux.setControl(controlLines.RegDest);
+	registerMux.setInputZero(rs);
+	registerMux.setInputOne(rd);
+
+
+
+	if(configFile.myDebugMode) cout << "Setting Read Registers" << endl;
+	if(!controlLines.RegDest.equasl("X")) cout << "Read registers not used" << endl;
+
+
+
+	
+
+
+
 
 }
 void execute(Instruction i)
