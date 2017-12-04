@@ -9,28 +9,28 @@ OpcodeTable::OpcodeTable()
 
 
   myArray[ADDI].name = "addi";  
-  myArray[ADDI].numOps = 3;   myArray[ADDI].rdPos = -1;  myArray[ADD].rtPos = 0;  myArray[ADDI].rsPos = 1;  myArray[ADDI].immPos = 2;  
+  myArray[ADDI].numOps = 3;   myArray[ADDI].rdPos = -1;  myArray[ADD].rtPos = 0;  myArray[ADDI].rsPos = 1;  myArray[ADDI].immPos = -1;  
   myArray[ADDI].instType = ITYPE; myArray[ADDI].op_field = "001000"; myArray[ADDI].funct_field = "";
 
 
   myArray[SUB].name = "sub";  
-  myArray[SUB].numOps = 2;   myArray[SUB].rdPos = 0;  myArray[SUB].rtPos = 2;  myArray[SUB].rsPos = 1; myArray[SUB].immPos = -1;  
-  myArray[SUB].instType = RTYPE; myArray[SUB].op_field = "000000"; myArray[SUB].funct_field = "011000";
+  myArray[SUB].numOps = 3;   myArray[SUB].rdPos = 0;  myArray[SUB].rtPos = 2;  myArray[SUB].rsPos = 1; myArray[SUB].immPos = -1;  
+  myArray[SUB].instType = RTYPE; myArray[SUB].op_field = "000000"; myArray[SUB].funct_field = "100010";
 
 
   myArray[LW].name = "lw";  
-  myArray[LW].numOps = 1;   myArray[LW].rdPos = 0;  myArray[LW].rsPos = -1;  myArray[LW].rtPos = -1;   myArray[LW].immPos = -1;  
-  myArray[LW].instType = RTYPE; myArray[LW].op_field = "000000"; myArray[LW].funct_field = "010010";
+  myArray[LW].numOps = 2;   myArray[LW].rdPos = -1;  myArray[LW].rsPos = -1;  myArray[LW].rtPos = 0;   myArray[LW].immPos = 1;  
+  myArray[LW].instType = ITYPE; myArray[LW].op_field = "100011"; myArray[LW].funct_field = "";
 
 
-  myArray[SW].name = "sw";  myArray[SW].numOps = 3;   myArray[SW].rdPos = 0;  
-  myArray[SW].rsPos = -1;  myArray[SW].rtPos = 1;   myArray[SW].immPos = 2;  
-  myArray[SW].instType = RTYPE; myArray[SW].op_field = "000000"; myArray[SW].funct_field = "000011";
+  myArray[SW].name = "sw";  myArray[SW].numOps = 2;   myArray[SW].rdPos = -1;  
+  myArray[SW].rsPos = -1;  myArray[SW].rtPos = 0;   myArray[SW].immPos = 1;  
+  myArray[SW].instType = ITYPE; myArray[SW].op_field = "101011"; myArray[SW].funct_field = "";
 
 
-  myArray[BEQ].name = "beq";  myArray[BEQ].numOps = 3;   myArray[BEQ].rdPos = 0; 
-   myArray[BEQ].rsPos = 1;  myArray[BEQ].rtPos = -1;   myArray[BEQ].immPos = -1;  
-   myArray[BEQ].instType = RTYPE; myArray[BEQ].op_field = "000000"; myArray[BEQ].funct_field = "101010";
+  myArray[BEQ].name = "beq";  myArray[BEQ].numOps = 3;   myArray[BEQ].rdPos = -1; 
+   myArray[BEQ].rsPos = 1;  myArray[BEQ].rtPos = 0;   myArray[BEQ].immPos = -1;  
+   myArray[BEQ].instType = ITYPE; myArray[BEQ].op_field = "000100"; myArray[BEQ].funct_field = ""; myArray[BEQ].immLabel=1;
 
 
   myArray[J].name = "j";  myArray[J].numOps = 1;   myArray[J].rdPos = -1;  

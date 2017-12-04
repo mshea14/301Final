@@ -1,5 +1,13 @@
 #include <data.h>
-#include <ConfigFile.h>
+#include "ConfigFile.h"
+#include "Operation.h"
+#include "Multipexlor.h"
+#include "DataMemory.h"
+#include "ALU.h"
+#include "ASMParser.h"
+#include "CongfigFile.h"
+#include "Instruction.h"
+#include "RegisterFile.h"
 #include <iostream> 
 
 int main(int argc, const char * argv[]) {
