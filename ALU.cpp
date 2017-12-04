@@ -68,10 +68,10 @@ void ALU::compareLessThan(){
 		if(debug){
 			cout << "Operand 1 is smaller than Operand 2" << endl;
 		}
-		output = BinaryToHex(cvtNumString2Number("0x00000001")); //1 = true
+		output = BinaryToHex("00000000000000000000000000000001"); //1 = true
 	}else{
 		if(debug){
-			output = BinaryToHex(cvtNumString2Number("0x00000000")); //0 = false
+			output = BinaryToHex("00000000000000000000000000000000"); //0 = false
 		}
 	}
 }
