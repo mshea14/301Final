@@ -366,6 +366,15 @@ Instruction[] ASMParser::createArrayOfInstructions()
 
 void ASMParser::printAllInstructions()
 {
+	Instruction[] instructionList = new Instruction[200];
+  	i = parser->getNextInstruction();
+  	while( i.getOpcode() != UNDEFINED){
+    instructionList[j] = i;
+    j++;
+    cout << Instruction << endl;
+    i = parser->getNextInstruction();
+  }
+  
 
 }
 

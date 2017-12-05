@@ -16,10 +16,12 @@ private:
 	void compareEqual(string operand1, string operand2);
 	void compareLessThan(string operand1, string operand2);
 	bool comparedResult;
-
-	string output;
-	string operand1;
-	string operand2;
+    
+    Operation o; //new instance of operation
+	string output; //hex string to return
+	string operand1; //takes in a binary string
+	string operand2; //takes in binary string
+    string operation; //operation to run
 	bool debug;
 	bool writeToFile;
 
@@ -34,6 +36,9 @@ public:
 	string getOutput();
 	bool getComparedResult();
 	void SetDebugAndFile(bool toDebug, bool toFile);
+    void runALU();
+    void setOperation(string op);
+    
 
 
 };

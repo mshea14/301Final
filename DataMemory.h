@@ -11,8 +11,9 @@ using namespace std;
 class DataMemory{
  	public:
 
+    //constructor
   	DataMemory();
-
+    
   	addToMemory(string s1,string s2);
 
  	&string getData(int i);

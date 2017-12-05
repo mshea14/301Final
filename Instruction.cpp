@@ -2,58 +2,115 @@
 
 
 
-Instruction::Instruction()
+Instruction::Instruction(){}
+//constructor
+
+//look at setup of instructions given "some instruction $reg $reg w/out offset" or can be jump
+Instruction::Instruction(string str1, string s2, string s3, string s4)
 {
-  myOpcode = UNDEFINED;
-  myRS = myRT = myRD = NumRegisters;
+	part1 = str1;
+    part2 = str2;
+    part3 = str3;
+    part4 = str4;
+    
+    str1.erase(remove(str1.begin(), str1.end(), '$'), str1.end());
+    str2.erase(remove(str2.begin(), str2.end(), '$'), str2.end());
+    str3.erase(remove(str3.begin(), str3.end(), '$'), str3.end());
+    str4.erase(remove(str4.begin(), str4.end(), '$'), str4.end());
+
+    myOpcode = str1;
+    jumpTo = "00000000000000000000000000";
+    myImmediate = "0000000000000000";
+
+    //add = 	add $rd, $rs, $rt
+    //encoding 0000 00ss ssst tttt dddd d000 0010 0000
+    if(myOpcode=="add")
+    {
+    	myRD = bitset< 5 >( stoi(str2)  ).to_string();
+        myRS = bitset< 5 >( stoi(str3)  ).to_string();
+        myRT = bitset< 5 >( stoi(str4)  ).to_string();
+
+    }
+
+
+    //sub = 	sub $rd, $rs, $rt
+    //encoding 0000 00ss ssst tttt dddd d000 0010 0010
+    else if(myOpcode=="sub")
+    {
+    	myRD = bitset< 5 >( stoi(str2)  ).to_string();
+        myRS = bitset< 5 >( stoi(str3)  ).to_string();
+        myRT = bitset< 5 >( stoi(str4)  ).to_string();
+    }
+
+    //addi $rt, $rs, imm
+    //0010 00ss ssst tttt iiii iiii iiii iiii
+    else if(myOpcode=="addi")
+    {
+    	//immediate 
+    	myImmediate = bitset<16>(stoi(str4)).to_string();
+        myRT = bitset< 5 >( stoi(str2)  ).to_string();
+        myRS = bitset< 5 >( stoi(str3)  ).to_string();
+
+    }
+    else if(myOpcode=="slt")
+    {
+    	
+    }
+    else if(myOpcode=="j")
+    {
+    	
+    }
+    else if(myOpcode=="sw")
+    {
+    	
+    }
+
+
+}
+    
+//get methods
+string Instruction::getOpcode()
+{
+	return myOpcode;
 }
 
-Instruction::Instruction(string opcode, string input1, string input2, string input3)
-// You can specify all the fields to initialize the Instruction
+string Instruction::getRS()
 {
-  //DECIDE WHAT INSTRUCTION
+	return myRS;
+}
+string Instruction::getRD()
+{
+	return myRD;
+}
+string Instruction::getRT()
+{
+	return myRT;
+}
+string Instruction::getJumpAmount()
+{
+	return jumpTo;
+}
+string Instruction::getImmediate()
+{
+	return myImmediate;
 }
 
-void Instruction::setValues(Opcode op, Register rs, Register rt, Register rd, int imm)
-// You can specify all the fields to initialize the Instruction
+    
+//prints instructions
+void Instruction::print()
 {
-
-  myOpcode = op;
-  if(op < 0 || op >= UNDEFINED)
-    myOpcode = UNDEFINED;
-
-  myRS = rs;
-  if(rs < 0 || rs >= NumRegisters)
-    myRS = NumRegisters;
-
-  myRT = rt;
-  if(rt < 0 || rt >= NumRegisters)
-    myRT = NumRegisters;
-
-  myRD = rd;
-  if(rd < 0 || rd >= NumRegisters)
-    myRD = NumRegisters;
-
-  myImmediate = imm;
-
-  //  if(!( (imm & 0xFFFF0000) << 1))  // make sure it has nothing in upper 16 bits
-  //    myImmediate = imm;  
-
+ cout << part1 << " " << part2 << " "  << part3 << " "  << part4 << " "  << endl;
 }
+    
+ string Instruction::instructionString()
+ {
+ 	stringstream ss;
+    ss << part1 << " " << part2 << " "  << part3 << " "  << part4 << " "  << endl;
+    
+    return ss.str();
+ }
 
-string Instruction::getString()
-// Returns a string which represents all of the fields 
-{
-  stringstream s ;
-  s << "OP: \t" << myOpcode << "\t" << "RD: " << myRD << "\t" << 
-    "RS: " << myRS << "\t" << "RT: " << "\t" << myRT << "\t" <<
-    "Imm: " << myImmediate;
-  
-  return s.str();
-  
-}
-
-
+/*
 Instruction::INS Instruction::getControlValues(){
   INS controlValues;
 
@@ -130,3 +187,4 @@ Instruction::INS Instruction::getControlValues(){
 
   return controlValues;
 }
+*/

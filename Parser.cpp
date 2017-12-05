@@ -96,3 +96,6 @@ DataMemory Parser::parseMemory(string filename){
     	}
     }
 }
+
+
+

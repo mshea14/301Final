@@ -17,55 +17,36 @@ class Instruction{
 
  public:
 
-  struct INS{
-
-      string RegDst;
-      string ALUSrc;
-      string MemtoReg;
-      string Regwrite;
-      string MemRead;
-      string MemWrite;
-      string Branch;
-      string ALUOp1;
-      string ALUOp0;
-      string Jump;
-    };
-  Instruction();
-
-  // You can specify all the fields to initialize the Instruction
-  Instruction(Opcode op, Register rs, Register rt, Register rd, int imm);
-  ~Instruction() {};
-
-  // Allows you to specify all the fields of the Instruction
-  void setValues(Opcode op, Register rs, Register rt, Register rd, int imm);
-
-  // Returns the various fields for the Instruction
-  Opcode getOpcode()   { return myOpcode;};
-  Register getRS()     { return myRS; };
-  Register getRD()     { return myRD; };
-  Register getRT()     { return myRT; };
-  int getImmediate()   { return myImmediate; };
-  INS getControlValues() ;
-
-  // Returns a string which represents all of the fields 
-  string getString();
-
-  // Stores the 32 bit binary encoding of MIPS instruction passed in
-  void setEncoding(string s) { myEncoding = s;};
-
-  // Returns string representing the 32 binary encoding of MIPS instruction
-  string getEncoding() { return myEncoding; };
-  
-  //return string of assembly instruction  
-  string getAssembly(Instruction i);
+    Instruction(); //constructor
+    Instruction(string str1, string s2, string s3, string s4);
+    
+    //get methods
+    string getOpcode();
+    string getRS();
+    string getRD();
+    string getRT();
+    string getJumpAmount();
+    string getImmediate();
+    
+    //prints instructions
+    void print();
+    
+   string instructionString();
 
  private:
-  Opcode myOpcode;
-  Register myRS;
-  Register myRT;
-  Register myRD;
-  int myImmediate;
-  INS myControlValues;
+    string myOpcode;
+    string myRS;
+    string myRT;
+    string  myRD;
+    string myImmediate;
+    string jumpTo;
+    
+    //parts of instruction string
+    string part1;
+    string part2;
+    string part3;
+    string part4;
+  //INS myControlValues;
 
   string myEncoding;
 };

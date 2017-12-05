@@ -17,5 +17,7 @@ class Parser{
 	&RegisterFile parseRegister(string filename);
 
 	&DataMemory parseMemory(string filename);
+    
+    
 
 };
