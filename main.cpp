@@ -182,6 +182,7 @@ void decode(Instruction i)
 	cout <<  "Control Line - ALUOp1: 0x" << controlLines.ALUOp1 << endl;
 	cout <<  "Control Line - ALUOp0: 0x" <<controlLines.ALUOp0 << endl;
 	cout << "Control Line - Jump: 0x" <<controlLines.ALUOp0 << endl;	
+	
 
 }
 void execute(Instruction i)

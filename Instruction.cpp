@@ -52,18 +52,44 @@ Instruction::Instruction(string str1, string s2, string s3, string s4)
         myRS = bitset< 5 >( stoi(str3)  ).to_string();
 
     }
+    //	slt $rd, $rs, $rt
     else if(myOpcode=="slt")
     {
-    	
+    	myRD = bitset< 5 >( stoi(str2)  ).to_string();
+        myRS = bitset< 5 >( stoi(str3)  ).to_string();
+        myRT = bitset< 5 >( stoi(str4)  ).to_string();
     }
+    //j target
     else if(myOpcode=="j")
     {
+
     	
     }
+    //	sw $t, offset($s)
     else if(myOpcode=="sw")
+    {
+    	string offset = bitset< 16 >( stoi(str3)  ).to_string(); //offset
+    	myImmediate = offset;
+
+    	myRT = bitset< 5 >( stoi(str2)  ).to_string();
+    	myRS = bitset< 5 >( stoi(str4)  ).to_string();
+
+    }
+    //lw $t, offset($s)
+     else if(myOpcode=="lw")
+    {
+    	string offset = bitset< 16 >( stoi(str3)  ).to_string(); //offset
+    	myImmediate = offset;
+
+    	myRT = bitset< 5 >( stoi(str2)  ).to_string();
+    	myRS = bitset< 5 >( stoi(str4)  ).to_string();
+    	
+    }
+     else if(myOpcode=="beq")
     {
     	
     }
+
 
 
 }
