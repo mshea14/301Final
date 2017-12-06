@@ -21,8 +21,13 @@ class RegisterFile{
   	setRegister(int i, string s);
 
   	printRegisterFile();
+    
+    bool shouldWrite(bool toWrite);
+    
 
 	private:
-
+    
+    bool write;
 	vector<string> myContents;
+  
 };

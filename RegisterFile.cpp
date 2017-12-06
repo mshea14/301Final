@@ -28,3 +28,11 @@ RegisterFile::printRegisterFile(){
 		outputFile << myContents[i] << endl;
 	}
 }
+
+
+bool Register::shouldWrite(bool toWrite)
+{
+
+	if(debug) cout << "Regiser can be overwritten" << endl;
+	write = toWrite;
+}

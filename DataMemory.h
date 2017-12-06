@@ -5,7 +5,7 @@ using namespace std;
 #include <vector>
 #include <sstream>
 #include <stdlib.h>
-
+#include <map>
    
 
 class DataMemory{
@@ -14,13 +14,26 @@ class DataMemory{
     //constructor
   	DataMemory();
     
-  	addToMemory(string s1,string s2);
+  	void addToMemory(string s1,string s2);
 
- 	&string getData(int i);
+ 	string getData(string i);
 
-  	setMemory(string s1, string s2);
+  	void setMemory(string s1, string s2);
 
-  	printDataMemory();
+  	void printDataMemory();
+    
+    void shouldWrite(bool toWrite);
+    
+    void shouldRead(bool toRead);
+    
+    void SetDebugAndFile(bool toDebug, bool toFile);
+    
+    //booleans
+    bool debug;
+    bool writeToFile;
+    bool writeToData;
+    bool readData;
+    
 
 	private:
 

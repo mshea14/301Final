@@ -27,7 +27,7 @@ public:
 	void setInputZero(string input);
 	string getOutput();
 	void execute();
-	void SetDebugAndFile(bool debug, bool toFile);
+	void SetDebugAndFile(bool toDebug, bool toFile);
 	
 
 };
