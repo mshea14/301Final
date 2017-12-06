@@ -9,9 +9,11 @@
 	//taking an int and converting it to a hexadecimal string 
 	string Operation::IntToHex(int num)
 	{
-		stringstream stream;
-		stream << hex << num;
-		return result(stream.str());
+		 char output[100];
+	    sprintf(output, "%08x", num);
+	    string result = output;
+	    result = "0x" + result;
+	    return result;
 	}
 
 
@@ -30,18 +32,83 @@
 	//binary string to hex string	
 	string Operation::BinaryToHex(string s)
 	{
-		int result =0 ;
-
-	    for(size_t count = 0; count < s.length() ; ++count)
-	    {
-	        result *=2;
-	        result += s[count]=='1'? 1 :0;
-	    }  
-
-	    stringstream ss;
-	    ss << "0x" << hex << setw(8) << setfill('0')  << result;
-
-	    return string hexVal(ss.str());
+		string rest("0x"),tmp,chr = "0000";
+		int len = s.length()/4;
+		chr = chr.substr(0,len);
+		s = chr+s;
+		for (int i=0;i<s.length();i+=4)
+		{
+			tmp = s.substr(i,4);
+			if (!tmp.compare("0000"))
+			{
+				rest = rest + "0";
+			}
+			else if (!tmp.compare("0001"))
+			{
+				rest = rest + "1";
+			}
+			else if (!tmp.compare("0010"))
+			{
+				rest = rest + "2";
+			}
+			else if (!tmp.compare("0011"))
+			{
+				rest = rest + "3";
+			}
+			else if (!tmp.compare("0100"))
+			{
+				rest = rest + "4";
+			}
+			else if (!tmp.compare("0101"))
+			{
+				rest = rest + "5";
+			}
+			else if (!tmp.compare("0110"))
+			{
+				rest = rest + "6";
+			}
+			else if (!tmp.compare("0111"))
+			{
+				rest = rest + "7";
+			}
+			else if (!tmp.compare("1000"))
+			{
+				rest = rest + "8";
+			}
+			else if (!tmp.compare("1001"))
+			{
+				rest = rest + "9";
+			}
+			else if (!tmp.compare("1010"))
+			{
+				rest = rest + "A";
+			}
+			else if (!tmp.compare("1011"))
+			{
+				rest = rest + "B";
+			}
+			else if (!tmp.compare("1100"))
+			{
+				rest = rest + "C";
+			}
+			else if (!tmp.compare("1101"))
+			{
+				rest = rest + "D";
+			}
+			else if (!tmp.compare("1110"))
+			{
+				rest = rest + "E";
+			}
+			else if (!tmp.compare("1111"))
+			{
+				rest = rest + "F";
+			}
+			else
+			{
+				continue;
+			}
+		}
+		return rest;
     
 
 	}
