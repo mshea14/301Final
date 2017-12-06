@@ -12,21 +12,24 @@
 
 
 class Instruction{
-    struct INS{
 
-      string RegDst;
-      string ALUSrc;
-      string MemtoReg;
-      string Regwrite;
-      string MemRead;
-      string MemWrite;
-      string Branch;
-      string ALUOp1;
-      string ALUOp0;
-    }
 
  public:
   Instruction();
+    
+    struct INS{
+        
+        string RegDst;
+        string ALUSrc;
+        string MemtoReg;
+        string Regwrite;
+        string MemRead;
+        string MemWrite;
+        string Branch;
+        string ALUOp1;
+        string ALUOp0;
+    }
+
 
   // You can specify all the fields to initialize the Instruction
   Instruction(Opcode op, Register rs, Register rt, Register rd, int imm);

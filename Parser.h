@@ -11,7 +11,9 @@ class Parser{
 	public:
 
 	Parser();
-
+    
+    void readAndPrintInstruction(int i, string filename);
+    
 	ConfigFile parseConfigFile(string filename);
 
 	RegisterFile parseRegister(string filename);

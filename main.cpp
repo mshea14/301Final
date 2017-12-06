@@ -10,6 +10,7 @@
 #include "RegisterFile.h"
 #include "PCounter.h"
 #include "Parser.h"
+#include "Opcode.h"
 #include <iostream> 
 
 
@@ -38,6 +39,12 @@ Operation o;
 
 //create new parser
 Parser p;
+
+//instruction 
+Instruction i;
+
+//opcode 
+OpcodeTable op;
 
 string opcode;
 string rs;
@@ -139,7 +146,7 @@ void fetch(Instruction i)
 	aluAdd.setOperand1(currentAddress);
 	aluAdd.setOperand2("00000000000000000000000000000100");
 	aluAdd.add(currentAddress, "00000000000000000000000000000100");
-	programCounter.setAdress(aluAdd.getOutput());
+	programCounter.setAddress(aluAdd.getOutput());
 	    
 	    
 	if(configFile.myDebugMode) 
@@ -156,14 +163,14 @@ void fetch(Instruction i)
 	aluAddandResult.setOperand1(currentAddress);
 
 
-	opcode = getOpcodeField(i.getOpcode());
+	opcode = op.getOpcodeField(i.getOpcode());
 
 }
 
 void decode(Instruction i)
 {
 	//get control values 
-	INS controlLines = i.getControlValues();
+	Instruction::INS controlLines = i.getControlValues();
 
 	//print control lines
 	i.printControlValues();
