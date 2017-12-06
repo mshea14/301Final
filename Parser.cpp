@@ -1,10 +1,33 @@
 #include "Parser.h"
+#include "RegisterFile.h"
+#include "DataMemory"
+#include "ConfigFile.h"
 #include "math.h"
 #include "string.h"
 #include <stringstream>
 #include <iostream>
 
 Parser::Parser(){
+
+}
+
+void Parser::readAndPrintInstruction(int i, string filename){
+	ifstream in;
+  	in.open(filename.c_str());
+  	if(in.bad()){
+    	cout<< "Cannot open input file";
+  	}else{
+    	string line;
+    }
+
+    vector<string> info;
+    while(getline(in, line)){
+			info.push_back(line);
+    	
+    }
+
+    cout << info[i] << endl;
+
 
 }
 
@@ -69,7 +92,7 @@ Parser::Parser(){
     }
     return &RegisterFile;
 }
-&DataMemory Parser::parseMemory(string filename){
+DataMemory Parser::parseMemory(string filename){
 
 	ifstream in;
   	in.open(filename.c_str());
