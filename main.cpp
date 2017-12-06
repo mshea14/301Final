@@ -201,15 +201,10 @@ void decode(Instruction i)
 
 
 
-	
-
-
-
-
 }
 void execute(Instruction i)
 {
-
+	
 
 }
 void memory(Instruction i)
