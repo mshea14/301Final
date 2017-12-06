@@ -54,11 +54,12 @@ string Instruction::getString()
 }
 
 
+
 Instruction::INS Instruction::getControlValues(){
   INS controlValues;
 
   //RTYPE 
-  if((int)this-> myOpcode==000000){
+  if(stoi(getOpcodeField(this-> myOpcode))==000000){
     controlValues.RegDst="1";
     controlValues.ALUSrc="0";
     controlValues.MemtoReg="0";
@@ -69,7 +70,7 @@ Instruction::INS Instruction::getControlValues(){
     controlValues.ALUOp1="1";
     controlValues.ALUOp0="0";
     controlValues.Jump="0";
-  } else if((int)this-> myOpcode == 100011){
+  } else if(stoi(getOpcodeField(this-> myOpcode)) == 100011){
     controlValues.RegDst="0";
     controlValues.ALUSrc="1";
     controlValues.MemtoReg="1";
@@ -80,7 +81,7 @@ Instruction::INS Instruction::getControlValues(){
     controlValues.ALUOp1="0";
     controlValues.ALUOp0="0";
     controlValues.Jump="0";
-  }else if((int)this-> myOpcode == 101011){
+  }else if(stoi(getOpcodeField(this-> myOpcode)) == 101011){
     controlValues.RegDst="X";
     controlValues.ALUSrc="1";
     controlValues.MemtoReg="X";
@@ -91,7 +92,7 @@ Instruction::INS Instruction::getControlValues(){
     controlValues.ALUOp1="0";
     controlValues.ALUOp0="0";
     controlValues.Jump="0";
-  }else if((int)this-> myOpcode == 000100){
+  }else if(stoi(getOpcodeField(this-> myOpcode)) == 000100){
     controlValues.RegDst="X";
     controlValues.ALUSrc="0";
     controlValues.MemtoReg="X";
@@ -102,7 +103,7 @@ Instruction::INS Instruction::getControlValues(){
     controlValues.ALUOp1="0";
     controlValues.ALUOp0="1";
     controlValues.Jump="0";
-  }else if((int)this-> myOpcode == 001000){
+  }else if(stoi(getOpcodeField(this-> myOpcode))== 001000){
     controlValues.RegDst="0";
     controlValues.ALUSrc="1";
     controlValues.MemtoReg="0";
@@ -115,7 +116,7 @@ Instruction::INS Instruction::getControlValues(){
     controlValues.Jump="0";
   }
   //jump
-  else if((int)this-> myOpcode == 000010){
+  else if(stoi(getOpcodeField(this-> myOpcode))== 000010){
     controlValues.RegDst="X";
     controlValues.ALUSrc="X";
     controlValues.MemtoReg="X";
@@ -129,4 +130,20 @@ Instruction::INS Instruction::getControlValues(){
   }
 
   return controlValues;
+
+}
+
+
+void Instruction::printControlValues(){
+    //print control lines
+  cout <<  "Control Line - RegDst: 0x" << this->myControlValues.RegDest << endl;
+  cout <<  "Control Line - ALUSrc: 0x" << this->myControlValues.ALUSrc << endl;
+  cout <<  "Control Line - MemToReg: 0x" << this->myControlValues.MemtoReg << endl;
+  cout <<  "Control Line - RegWrite: 0x" <<this->myControlValues.Regwrite << endl;
+  cout <<  "Control Line - MemRead: 0x" << this->myControlValues.MemRead << endl;
+  cout <<  "Control Line - MemWrite: 0x" << this->myControlValues.MemWrite << endl;
+  cout <<  "Control Line - Branch: 0x" << this->myControlValues.Branch << endl;
+  cout <<  "Control Line - ALUOp1: 0x" << this->myControlValues.ALUOp1 << endl;
+  cout <<  "Control Line - ALUOp0: 0x" <<this->myControlValues.ALUOp0 << endl;
+  cout << "Control Line - Jump: 0x" <<this->myControlValues.ALUOp0 << endl;
 }

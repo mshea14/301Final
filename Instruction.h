@@ -4,7 +4,6 @@
 #include "Opcode.h"
 #include "RegisterTable.h"
 #include <sstream>
-using namespace std;
 
 /* This class provides an internal representation for a MIPS assembly instruction.
  * Any of the fields can be queried.  Additionally, the class stores a 32 bit binary
@@ -13,11 +12,7 @@ using namespace std;
 
 
 class Instruction{
-  
-
- public:
-
-  struct INS{
+    struct INS{
 
       string RegDst;
       string ALUSrc;
@@ -28,8 +23,9 @@ class Instruction{
       string Branch;
       string ALUOp1;
       string ALUOp0;
-      string Jump;
-    };
+    }
+
+ public:
   Instruction();
 
   // You can specify all the fields to initialize the Instruction
@@ -46,6 +42,7 @@ class Instruction{
   Register getRT()     { return myRT; };
   int getImmediate()   { return myImmediate; };
   INS getControlValues() ;
+  void printControlLines();
 
   // Returns a string which represents all of the fields 
   string getString();
@@ -55,9 +52,8 @@ class Instruction{
 
   // Returns string representing the 32 binary encoding of MIPS instruction
   string getEncoding() { return myEncoding; };
-  
-  //return string of assembly instruction  
-  string getAssembly(Instruction i);
+
+
 
  private:
   Opcode myOpcode;
