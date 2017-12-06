@@ -16,6 +16,14 @@ public:
 
 	//Default Constructor
 	ALU();
+    
+    Operation o;
+    
+    string operation;
+    
+    void runALU();
+    
+    void setOperation(string op);
 
 	void compareLessThan();
 	void setOperand1(string operand);

@@ -13,8 +13,9 @@ using namespace std;
 
 class ConfigFile{
  	public:
-
-  	ConfigFile(string s1,string s2, string s3, string s4, bool b1, bool b2, bool b3,string s5);
+    
+    ConfigFile();
+  	ConfigFile(string const& s1,string const& s2, string const& s3, string const& s4, bool const& b1, bool const& b2, bool const& b3,string const& s5);
 
 	string myProgramInput;
 	string myMemoryInput;

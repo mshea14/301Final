@@ -13,14 +13,14 @@
 	void Multiplexor::setControl(string OneorZero)
 	{
 		bool control;
-		if(!(1or0.equals("1"))) control = true;
+		if((OneorZero.compare("1"))==0) control = true;
 		else control =false;
 		if(debug)
 		{
-			cout << "Setting Multiplexor control to:   " << newControl<<  endl;
+			cout << "Setting Multiplexor control to:   " << control<<  endl;
 		}
 
-		control = newControl;
+		control = control;
 
 		execute();
 	}

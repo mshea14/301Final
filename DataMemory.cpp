@@ -11,9 +11,9 @@ void DataMemory::addToMemory(string s1,string s2){
 	myContents.insert(pair<string,string>(s1,s2));
 }
 
-&string DataMemory::getData(string i){
+string DataMemory::getData(string i){
 
-	return &myContents.find(i) -> second;
+	return myContents.find(i) -> second;
 }
 
 void DataMemory::setMemory(string s1, string s2){

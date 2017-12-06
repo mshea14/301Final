@@ -11,7 +11,7 @@
 	{
 		stringstream stream;
 		stream << hex << num;
-		return string result(stream.str());
+		return result(stream.str());
 	}
 
 
@@ -56,7 +56,7 @@
 		string substring = str.substr(0,1);
 		while(str.length()!=32)
 		{
-			str.append(0, substring);
+			str.append(substring,0);
 		}
 
 		if(debug)

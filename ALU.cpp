@@ -167,4 +167,3 @@ void ALU::setOperation(string op)
 
 
 
-s

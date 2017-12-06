@@ -12,6 +12,11 @@
 
 
 class Instruction{
+    
+
+
+ public:
+    
     struct INS{
         
         string RegDst;
@@ -25,9 +30,6 @@ class Instruction{
         string ALUOp0;
         string Jump;
     };
-
-
- public:
   Instruction();
     
    
@@ -58,7 +60,7 @@ class Instruction{
   string getEncoding() { return myEncoding; };
 
 
-
+    
  private:
   Opcode myOpcode;
   Register myRS;

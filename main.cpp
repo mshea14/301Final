@@ -199,7 +199,7 @@ void decode(Instruction i)
 	{
 		string controlForBranch;
 
-		if(controlLines.Branch.compare('1')==0 && aluALUandResult.getComparedResult()) branchOrAddMux.setControl("1");
+		if(controlLines.Branch.compare("1")==0 && aluALUandResult.getComparedResult()) branchOrAddMux.setControl("1");
 		else branchOrAddMux.setControl("0");
 
 	}

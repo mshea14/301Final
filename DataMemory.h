@@ -19,14 +19,14 @@ class DataMemory{
 
   	void addToMemory(string s1,string s2);
 
- 	string getData(int i);
+ 	string getData(string i);
 
   	void setMemory(string s1, string s2);
 
   	void printDataMemory();
 
-	private:
+	protected:
 
-	map<int,string> myContents;
+	map<string,string> myContents;
 };
 #endif

@@ -350,19 +350,6 @@ string ASMParser::encode(Instruction i)
   return s;
 }
 
-Instruction[] ASMParser::createArrayOfInstructions()
-{
-  //Iterate through instructions, printing each encoding.
-  Instruction[] instructionList = new Instruction[200];
-  i = parser->getNextInstruction();
-  while( i.getOpcode() != UNDEFINED){
-    instructionList[j] = i;
-    j++;
-    i = parser->getNextInstruction();
-  }
-  return instructionList;
-
-}
 
 void ASMParser::printAllInstructions()
 {
