@@ -30,8 +30,13 @@ RegisterFile registerFile;
 ConfigFile configFile;
 DataMemory dataMem;
 
+string currentAddress;
+
 //create new operation
 Operation o;
+
+//create new parser
+Parser p;
 
 string opcode;
 string rs;
@@ -51,16 +56,16 @@ int main(int argc, const char * argv[]) {
 
   	
   	//create config file
-	configFile = parseConfigFile(argv[2]);
+	configFile = p.parseConfigFile(argv[2]);
 
 	//create register file
-	registerFile = parseRegister(configFile.myRegisterInput);
+	registerFile = p.parseRegister(configFile.myRegisterInput);
 
 	//create Data Memory
-	dataMem = parseMemory(configFile.myMemoryInput);
+	dataMem = p.parseMemory(configFile.myMemoryInput);
 
 	//create new parser
-	parser = new ASMParser(configFile.myProgramInput);
+	asmParse = new ASMParser(configFile.myProgramInput);
 
 
 
@@ -69,9 +74,41 @@ int main(int argc, const char * argv[]) {
 	    exit(1);
 	 }
 
-	cout << "Print memory contents set to: " << configFile.myPrintMemContent << endl;
+
+	 //counter 
+	 int j=0;
+
+	//Iterate through instructions, printing each encoding.
+  	i = parser->getNextInstruction();
+  	while( i.getOpcode() != UNDEFINED){
+    
 	
-	Instruction i;
+
+	    //print out instruction being executed
+		p.readAndPrintInstruction(j, configFile.myProgramInput);
+
+
+		fetch(i);
+		decode(i);
+		execute(i);
+		memory(i);
+		writeback(i);
+	  
+
+		//if print memory contents is true, print out memory, register files
+		if(configFile.myPrintMemContent)  
+		{
+			dataMem.printDataMemory();
+			registerFile.printRegisterFile();
+			//print out instruction memory
+
+		}
+
+		//increment up register file 
+		j++;
+
+  	}
+  
 
 
 	//SET IF DEBUG OR WRITE TO FILE
@@ -86,48 +123,6 @@ int main(int argc, const char * argv[]) {
 	jumpOrAddMux.SetDebugAndFile(configFile.myDebugMode, configFile.myWriteToFile);
 
 
-	
-
-	while(true)
-	{	
-		//GET CURRENT INSTRUCTION!
-		public Instruction i;
-
-		 //first print out memory and register
-		if(configFile.myPrintMemContent)  
-		{
-			dataMem.printDataMemory();
-			registerFile.printRegisterFile();
-			//PRINT OUT ALL INSTRUCTIONS
-
-		}	
-
-	    //print out instruction being executed
-		if(configFile.myDebugMode) 
-		{
-			//print out current instruction
-		}
-
-		fetch(i);
-		decode(i);
-		execute(i);
-		memory(i);
-		writeback(i);
-	  
-
-		//if print memory contents is true, print out memory, register files
-		if(configFile.myPrintMemContent)  
-		{
-			dataMem.printDataMemory();
-			registerFile.printRegisterFile();
-
-		}	
-
-	}
-
-
-
-
 	return 0;
 
 
@@ -139,10 +134,10 @@ void fetch(Instruction i)
 	{
 		cout << "Incrementing PC" << endl;
 	}
-
-	aluAdd.setOperand1(programCounter.getAddress());
+	currentAddress =programCounter.getAddress();
+	aluAdd.setOperand1(currentAddress);
 	aluAdd.setOperand2("00000000000000000000000000000100");
-	aluAdd.add(programCounter.getAddress(), "00000000000000000000000000000100");
+	aluAdd.add(currentAddress, "00000000000000000000000000000100");
 	programCounter.setAdress(aluAdd.getOutput());
 	    
 	    
@@ -150,21 +145,17 @@ void fetch(Instruction i)
 	{
 		cout << "Input to Multiplexor 5 Operand 0 set" << endl;
 	}
-	branchOrAddMux.setInputZero(programCounter.getAddress());
+	branchOrAddMux.setInputZero(currentAddress);
 
 
 	if(configFile.myDebugMode) 
 	{
 		cout << "Input to ALU Add and Result Operand 0 set" << endl;
 	}
-	aluAddandResult.setOperand1(programCounter.getAddress());
+	aluAddandResult.setOperand1(currentAddress);
 
-	opcode = i.getOpcode();
-	rs = i.getRs();
-	rt = i.getRt();
-	rd = i.getRd();
-	immediate = i.getImmediate();
-	jumpAmount = i.getJumpAmount();
+
+	opcode = getOpcodeField(i.getOpcode());
 
 }
 
@@ -174,30 +165,50 @@ void decode(Instruction i)
 	INS controlLines = i.getControlValues();
 
 	//print control lines
-	cout <<  "Control Line - RegDst: 0x" << controlLines.RegDest << endl;
-	cout <<  "Control Line - ALUSrc: 0x" << controlLines.ALUSrc << endl;
-	cout <<  "Control Line - MemToReg: 0x" << controlLines.MemtoReg << endl;
-	cout <<  "Control Line - RegWrite: 0x" << controlLines.Regwrite << endl;
-	cout <<  "Control Line - MemRead: 0x" << controlLines.MemRead << endl;
-	cout <<  "Control Line - MemWrite: 0x" << controlLines.MemWrite << endl;
-	cout <<  "Control Line - Branch: 0x" << controlLines.Branch << endl;
-	cout <<  "Control Line - ALUOp1: 0x" << controlLines.ALUOp1 << endl;
-	cout <<  "Control Line - ALUOp0: 0x" <<controlLines.ALUOp0 << endl;
-	cout << "Control Line - Jump: 0x" <<controlLines.ALUOp0 << endl;
+	i.printControlValues();
 
 	//send signals 
 
+	//REG DST
 	if(configFile.myDebugMode) cout << "Setting Multiplexor 1" << endl;
-	if(!controlLines.RegDest.equasl("X")) cout << "RegDest not used" << endl;
+	if(!controlLines.RegDest.equals("X")) cout << "RegDest not used" << endl;
+	else 
+	{
+		registerMux.setControl(controlLines.RegDest);
+	}
+	
 
-	registerMux.setControl(controlLines.RegDest);
-	registerMux.setInputZero(rs);
-	registerMux.setInputOne(rd);
+
+	//JUMP
+	if(configFile.myDebugMode) cout << "Setting Jump Line" << endl;
+	if(!controlLines.Jump.equals("X")) cout << "Jump not used" << endl;
+	else 
+	{
+		jumpOrAddMux.setControl(controlLines.Jump);
+	}
+
+	//BRANCH
+	if(configFile.myDebugMode) cout << "Setting Branch Line" << endl;
+	if(!controlLines.Branch.equals("X")) cout << "Branch not used" << endl;
+	else 
+	{
+		string controlForBranch;
+
+		if(controlLines.Branch=='1' && aluALUandResult.getComparedResult()) branchOrAddMux.setControl("1");
+		else branchOrAddMux.setControl("0");
+
+	}
 
 
+	//REG DST
+	if(configFile.myDebugMode) cout << "Setting Multiplexor 1" << endl;
+	if(!controlLines.MemtoReg.equals("X")) cout << "MemToReg not used" << endl;
+	else
+	{
+		rmemOrALUMux.setControl(controlLines.MemtoReg);
+	}
 
-	if(configFile.myDebugMode) cout << "Setting Read Registers" << endl;
-	if(!controlLines.RegDest.equasl("X")) cout << "Read registers not used" << endl;
+	
 
 
 
