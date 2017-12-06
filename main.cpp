@@ -51,6 +51,7 @@ string rs;
 string rt;
 string rd;
 string immediate;
+string functionField;
 string jumpAmount;
 PCounter programCounter= PCounter();
 
@@ -247,6 +248,24 @@ void execute(Instruction i)
 	aluALUandResult.setOperand1(registerOrImmMux.getOutput());
 	aluALUandResult.setOperand2(itoa((int)i.getRS()));
 
+	//set operation
+	//r-type 
+	if(opcode.compare("000000")==0)
+	{
+
+		functionField = op.getFunctField(i.getOpcode());
+		if(functionField.compare("100000")==0) aluAddandResult.runALU("add");
+		if(functionField.compare("100010")==0) aluAddandResult.runALU("subtract");
+		if(functionField.compare("101010")==0) aluAddandResult.runALU("less");
+
+	}
+	else if(opcode.compare("000100")==0)
+	{
+		aluAddandResult.runALU("equal");
+	}
+	
+
+
 	if(i.getControlValues().MemtoReg != "X"){
 		memOrALUMux.setInputOne(dataMem.getData(aluALUandResult.getOutput()));
 		memOrALUMux.setInputZero(aluALUandResult.getOutput());
@@ -255,15 +274,15 @@ void execute(Instruction i)
 
 	aluAddandResult.setOperand1(o.ShiftLeftTwo(o.SignExtend(o.HexToBinary(o.IntToHex(i.getImmediate())))));
 	aluAddandResult.setOperand2(programCounter.getAddress());
-
-	
-	//set the operaiton 
-
 	aluAddandResult.runALU("add");
+
+
+	//branch 
 	branchOrAddMux.setInputOne(aluAddandResult.getOutput());
 	branchOrAddMux.setInputZero(programCounter.getAddress());
 	branchOrAddMux.execute();
 
+	//jump
 	jumpOrAddMux.setInputOne(programCounter.getAddress().substr(0,4)+o.ShiftLeftTwo(o.SignExtend(o.HexToBinary(o.IntToHex(i.getImmediate())))));
 	jumpOrAddMux.setInputZero(branchOrAddMux.getOutput());
 
