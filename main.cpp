@@ -5,13 +5,15 @@
 #include "ALU.h"
 #include "ASMParser.h"
 #include "Instruction.h"
+#include "ALUControl.h"
 #include "PCounter.h"
 #include "Parser.h"
 #include "Opcode.h"
 #include <iostream> 
 #include <string>
 #include <cstdlib>
-
+#include <numeric>
+using namespace std;
 
 void fetch(Instruction i);
 void decode(Instruction i);
@@ -230,15 +232,7 @@ void decode(Instruction i)
 void execute(Instruction i)
 
 {
-ALU aluAdd; //ALU 1
-ALU aluAddandResult; //ALU 2
-ALU aluALUandResult; //ALU 3
-Multiplexor registerMux;  //Mux
-Multiplexor registerOrImmMux;  //Mux
-Multiplexor memOrALUMux; //Mux
-Multiplexor branchOrAddMux; //Mux
-Multiplexor jumpOrAddMux; //Mux
-	OpcodeTable o;
+
 	if(i.getControlValues().RegDst != "X"){
 		registerMux.setInputOne(itoa((int)i.getRD()));
 		registerMux.setInputZero(itoa((int)i.getRT()));
@@ -253,20 +247,24 @@ Multiplexor jumpOrAddMux; //Mux
 	aluALUandResult.setOperand1(registerOrImmMux.getOutput());
 	aluALUandResult.setOperand2(itoa((int)i.getRS()));
 
-	if(i.getControlValues().MemToReg != "X"){
+	if(i.getControlValues().MemtoReg != "X"){
 		memOrALUMux.setInputOne(dataMem.getData(aluALUandResult.getOutput()));
 		memOrALUMux.setInputZero(aluALUandResult.getOutput());
 		memOrALUMux.execute();
 	} 
 
 	aluAddandResult.setOperand1(o.ShiftLeftTwo(o.SignExtend(o.HexToBinary(o.IntToHex(i.getImmediate())))));
-	aluAddandResult.setOperand2(programCounter.getAddress());	
+	aluAddandResult.setOperand2(programCounter.getAddress());
+
 	
-	branchOrAddMux.setInputOne(aluAddandResult.runALU());
-	branchOrAddMux.setInputZero(programCounter.getAdress());
+	//set the operaiton 
+
+	aluAddandResult.runALU("add");
+	branchOrAddMux.setInputOne(aluAddandResult.getOutput());
+	branchOrAddMux.setInputZero(programCounter.getAddress());
 	branchOrAddMux.execute();
 
-	jumpOrAddMux.setInputOne(programCounter.getAdress().substr(0,4)+o.ShiftLeftTwo(o.SignExtend(o.HexToBinary(o.IntToHex(i.getImmediate())))));
+	jumpOrAddMux.setInputOne(programCounter.getAddress().substr(0,4)+o.ShiftLeftTwo(o.SignExtend(o.HexToBinary(o.IntToHex(i.getImmediate())))));
 	jumpOrAddMux.setInputZero(branchOrAddMux.getOutput());
 
 

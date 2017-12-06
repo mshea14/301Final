@@ -116,7 +116,7 @@ void ALU::SetDebugAndFile(bool toDebug, bool toFile)
 }
 
 
-void ALU::runALU()
+void ALU::runALU(string op)
 {
 	if(debug) 
 	{
@@ -125,22 +125,22 @@ void ALU::runALU()
 	}
 
 
-	if(operation.compare("add")==0)
+	if(op.compare("add")==0)
 	{
 		if(debug) cout << "ALU adding" << endl;
 		add(operand1, operand2);
 	}
-	else if(operation.compare("less")==0)
+	else if(op.compare("less")==0)
 	{
 		if(debug) cout << "ALU checking less than or equal" << endl;
 		compareLessThan(operand1, operand2);		
 	}
-	else if(operation.compare("equal")==0)
+	else if(op.compare("equal")==0)
 	{
 		if(debug) cout << "ALU checking equality" << endl;
 		compareEqual(operand1, operand2);
 	}
-	else if(operation.compare("subtract")==0)
+	else if(op.compare("subtract")==0)
 	{
 		if(debug) cout << "ALU subtracting" << endl;
 		sub(operand1, operand2);

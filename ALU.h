@@ -21,7 +21,7 @@ public:
     
     string operation;
     
-    void runALU();
+    void runALU(string op);
     
     void setOperation(string op);
 
