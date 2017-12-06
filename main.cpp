@@ -293,13 +293,19 @@ void execute(Instruction i)
 }
 void memory(Instruction i)
 {
+	if (i.getControlValues().MemWrite == "1")
+	{
+
+		dataMem.setMemory(aluALUandResult.getOutput(), registerFile.getRegister((int)i.getRS()));
+	}
+
+	if(i.getControlValues().MemRead == "1")
+	{
+		registerFile.setRegister((int)i.getRS(), dataMem.getData(aluALUandResult.getOutput()));
+	}
 
 }
 
-void writeback(Instruction i)
-{
-
-}
 
 
 
