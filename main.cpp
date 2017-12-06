@@ -282,9 +282,12 @@ void execute(Instruction i)
 	branchOrAddMux.setInputZero(programCounter.getAddress());
 	branchOrAddMux.execute();
 
+
 	//jump
 	jumpOrAddMux.setInputOne(programCounter.getAddress().substr(0,4)+o.ShiftLeftTwo(o.SignExtend(o.HexToBinary(o.IntToHex(i.getImmediate())))));
 	jumpOrAddMux.setInputZero(branchOrAddMux.getOutput());
+	jumpOrAddMux.execute();
+	programCounter.setAddress(jumpOrAddMux.getOutput());
 
 
 	
