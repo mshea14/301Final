@@ -209,6 +209,7 @@ void decode(Instruction i)
 		rmemOrALUMux.setControl(controlLines.MemtoReg);
 	}
 
+<<<<<<< HEAD
 
 	//ALU SRC
 	if(configFile.myDebugMode) cout << "Setting Multiplexor 2" << endl;
@@ -217,12 +218,16 @@ void decode(Instruction i)
 	{
 		registerOrImmMux.setControl(controlLines.ALUSrc);
 	}
+=======
+	
+
+>>>>>>> 4b69d7222152a43eff97425f77980b5f1adef33d
 
 
 }
 void execute(Instruction i)
 {
-
+	
 
 }
 void memory(Instruction i)
