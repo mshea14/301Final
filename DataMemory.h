@@ -13,13 +13,13 @@ class DataMemory{
 
   	DataMemory();
 
-  	addToMemory(string s1,string s2);
+  	void addToMemory(string s1,string s2);
 
  	&string getData(int i);
 
-  	setMemory(string s1, string s2);
+  	void setMemory(string s1, string s2);
 
-  	printDataMemory();
+  	void printDataMemory();
 
 	private:
 

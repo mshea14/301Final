@@ -10,7 +10,7 @@
 	}
 
 	//set control
-	void Multiplexor::setControl(string 1or0)
+	void Multiplexor::setControl(string OneorZero)
 	{
 		bool control;
 		if(!(1or0.equals("1"))) control = true;

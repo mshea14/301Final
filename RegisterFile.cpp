@@ -15,11 +15,11 @@ void RegisterFile::addToFile(string s){
 	return myContents[i];
 }
 
-RegisterFile::setRegister(int i, string s){
+void RegisterFile::setRegister(int i, string s){
 	myContents[i]= s;
 }
 
-RegisterFile::printRegisterFile(){
+void RegisterFile::printRegisterFile(){
 	ofstream outputFile ("output.txt");
 
 	for(int i = 0; i <myContents.size(); i++){

@@ -6,6 +6,8 @@ using namespace std;
 #include <vector>
 #include <sstream>
 #include <stdlib.h>
+#include <string>
+
 
    
 
@@ -14,13 +16,13 @@ class RegisterFile{
 
   	RegisterFile();
 
-  	addToFile(string s);
+  	void addToFile(string s);
 
- 	&string getRegister(int i);
+ 	string getRegister(int i);
 
-  	setRegister(int i, string s);
+  	void setRegister(int i, string s);
 
-  	printRegisterFile();
+  	void printRegisterFile();
 
 	private:
 

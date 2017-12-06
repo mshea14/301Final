@@ -7,7 +7,7 @@ DataMemory::DataMemory(){
 
 }
 
-DataMemory::addToMemory(string s1,string s2){
+void DataMemory::addToMemory(string s1,string s2){
 	myContents.insert(pair<string,string>(s1,s2));
 }
 
@@ -16,12 +16,12 @@ DataMemory::addToMemory(string s1,string s2){
 	return &myContents.find(i) -> second;
 }
 
-DataMemory::setMemory(string s1, string s2){
+void DataMemory::setMemory(string s1, string s2){
 
 	myContents.find(s1)->second= s2;
 }
 
-DataMemory::printDataMemory(){
+void DataMemory::printDataMemory(){
 	ofstream outputFile ("output.txt");
 
 	for(auto it = myContents.cbegin(); it != myContents.cend(); ++it)

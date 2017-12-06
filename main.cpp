@@ -9,6 +9,7 @@
 #include "Instruction.h"
 #include "RegisterFile.h"
 #include "PCounter.h"
+#include "Parser.h"
 #include <iostream> 
 
 
@@ -44,7 +45,7 @@ string rt;
 string rd;
 string immediate;
 string jumpAmount;
-PCounter programCounter = new PCounter();
+PCounter programCounter= PCounter();
 
 int main(int argc, const char * argv[]) {
 	
@@ -201,20 +202,21 @@ void decode(Instruction i)
 
 
 	//REG DST
-	if(configFile.myDebugMode) cout << "Setting Multiplexor 1" << endl;
+	if(configFile.myDebugMode) cout << "Setting Multiplexor 3" << endl;
 	if(!controlLines.MemtoReg.equals("X")) cout << "MemToReg not used" << endl;
 	else
 	{
 		rmemOrALUMux.setControl(controlLines.MemtoReg);
 	}
 
-	
 
-
-
-	
-
-
+	//ALU SRC
+	if(configFile.myDebugMode) cout << "Setting Multiplexor 2" << endl;
+	if(!controlLines.ALUSrc.equals("X")) cout << "ALUSrc not used" << endl;
+	else
+	{
+		registerOrImmMux.setControl(controlLines.ALUSrc);
+	}
 
 
 }

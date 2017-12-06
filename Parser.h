@@ -12,10 +12,10 @@ class Parser{
 
 	Parser();
 
-	&ConfigFile parseConfigFile(string filename);
+	ConfigFile parseConfigFile(string filename);
 
-	&RegisterFile parseRegister(string filename);
+	RegisterFile parseRegister(string filename);
 
-	&DataMemory parseMemory(string filename);
+	DataMemory parseMemory(string filename);
 
 };

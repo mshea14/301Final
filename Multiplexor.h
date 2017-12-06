@@ -22,8 +22,8 @@ private:
 
 public:
 	Multiplexor();
-	void setControl(string 1or0); 
-	void setInputOne(string input);
+	void setControl(string OneorZero);
+    void setInputOne(string input);
 	void setInputZero(string input);
 	string getOutput();
 	void execute();
