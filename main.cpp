@@ -2,22 +2,20 @@
 #include "ConfigFile.h"
 #include "Operation.h"
 #include "Multiplexor.h"
-#include "DataMemory.h"
 #include "ALU.h"
 #include "ASMParser.h"
-#include "ConfigFile.h"
 #include "Instruction.h"
-#include "RegisterFile.h"
 #include "PCounter.h"
 #include "Parser.h"
 #include "Opcode.h"
 #include <iostream> 
+#include <string>
 
 
 void fetch(Instruction i);
 void decode(Instruction i);
 void execute(Instruction i);
-void writback(Instruction i);
+void writeback(Instruction i);
 void memory(Instruction i);
 
 ALU aluAdd; //ALU 1
@@ -29,9 +27,8 @@ Multiplexor memOrALUMux; //Mux
 Multiplexor branchOrAddMux; //Mux
 Multiplexor jumpOrAddMux; //Mux
 RegisterFile registerFile;
-ConfigFile configFile;
 DataMemory dataMem;
-
+ConfigFile configFile;
 string currentAddress;
 
 //create new operation
@@ -64,7 +61,7 @@ int main(int argc, const char * argv[]) {
 
   	
   	//create config file
-	configFile = p.parseConfigFile(argv[2]);
+	 configFile= p.parseConfigFile(argv[2]);
 
 	//create register file
 	registerFile = p.parseRegister(configFile.myRegisterInput);
@@ -73,11 +70,11 @@ int main(int argc, const char * argv[]) {
 	dataMem = p.parseMemory(configFile.myMemoryInput);
 
 	//create new parser
-	asmParse = new ASMParser(configFile.myProgramInput);
+	ASMParser *asmParse = new ASMParser(configFile.myProgramInput);
 
 
 
-	 if(parser->isFormatCorrect() == false){
+	 if(asmParse->isFormatCorrect() == false){
 	    cerr << "Format of input file is incorrect " << endl;
 	    exit(1);
 	 }
@@ -87,7 +84,7 @@ int main(int argc, const char * argv[]) {
 	 int j=0;
 
 	//Iterate through instructions, printing each encoding.
-  	i = parser->getNextInstruction();
+  	i = asmParse->getNextInstruction();
   	while( i.getOpcode() != UNDEFINED){
     
 	
@@ -179,17 +176,17 @@ void decode(Instruction i)
 
 	//REG DST
 	if(configFile.myDebugMode) cout << "Setting Multiplexor 1" << endl;
-	if(!controlLines.RegDest.equals("X")) cout << "RegDest not used" << endl;
+	if(controlLines.RegDst.compare("X")!=0) cout << "RegDest not used" << endl;
 	else 
 	{
-		registerMux.setControl(controlLines.RegDest);
+		registerMux.setControl(controlLines.RegDst);
 	}
 	
 
 
 	//JUMP
 	if(configFile.myDebugMode) cout << "Setting Jump Line" << endl;
-	if(!controlLines.Jump.equals("X")) cout << "Jump not used" << endl;
+	if(controlLines.Jump.compare("X")!=0) cout << "Jump not used" << endl;
 	else 
 	{
 		jumpOrAddMux.setControl(controlLines.Jump);
@@ -197,12 +194,12 @@ void decode(Instruction i)
 
 	//BRANCH
 	if(configFile.myDebugMode) cout << "Setting Branch Line" << endl;
-	if(!controlLines.Branch.equals("X")) cout << "Branch not used" << endl;
+	if(controlLines.Branch.compare("X")!=0) cout << "Branch not used" << endl;
 	else 
 	{
 		string controlForBranch;
 
-		if(controlLines.Branch=='1' && aluALUandResult.getComparedResult()) branchOrAddMux.setControl("1");
+		if(controlLines.Branch.compare('1')==0 && aluALUandResult.getComparedResult()) branchOrAddMux.setControl("1");
 		else branchOrAddMux.setControl("0");
 
 	}
@@ -210,17 +207,17 @@ void decode(Instruction i)
 
 	//REG DST
 	if(configFile.myDebugMode) cout << "Setting Multiplexor 3" << endl;
-	if(!controlLines.MemtoReg.equals("X")) cout << "MemToReg not used" << endl;
+	if(controlLines.MemtoReg.compare("X")!=0) cout << "MemToReg not used" << endl;
 	else
 	{
-		rmemOrALUMux.setControl(controlLines.MemtoReg);
+		memOrALUMux.setControl(controlLines.MemtoReg);
 	}
 
 
 
 	//ALU SRC
 	if(configFile.myDebugMode) cout << "Setting Multiplexor 2" << endl;
-	if(!controlLines.ALUSrc.equals("X")) cout << "ALUSrc not used" << endl;
+	if(controlLines.ALUSrc.compare("X")==0) cout << "ALUSrc not used" << endl;
 	else
 	{
 		registerOrImmMux.setControl(controlLines.ALUSrc);

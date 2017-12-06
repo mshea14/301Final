@@ -1,4 +1,5 @@
-
+#ifndef Register_h
+#define Register_h
 using namespace std;
 
 #include <iostream>
@@ -28,3 +29,4 @@ class RegisterFile{
 
 	vector<string> myContents;
 };
+#endif

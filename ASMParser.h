@@ -12,7 +12,7 @@ using namespace std;
 #include <sstream>
 #include <stdlib.h>
 #include <bitset>
-#include "Parser.h"
+
 
 /* This class reads in a MIPS assembly file and checks its syntax.  If
  * the file is syntactically correct, this class will retain a list 
@@ -75,7 +75,7 @@ class ASMParser{
   string cvtBinaryToString(int i, int len);
 
   //creates an array of instructions
-  Instruction[] createArrayOfInstructions();
+
 
 
 

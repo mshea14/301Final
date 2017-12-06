@@ -1,3 +1,6 @@
+#ifndef Config_h
+#define Config_h
+
 using namespace std;
 
 #include <iostream>
@@ -23,3 +26,4 @@ class ConfigFile{
 	string myOutputFile;
 
 };
+#endif

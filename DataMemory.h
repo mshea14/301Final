@@ -1,3 +1,6 @@
+#ifndef DataMemory_h
+#define DataMemory_h
+
 using namespace std;
 
 #include <iostream>
@@ -5,6 +8,7 @@ using namespace std;
 #include <vector>
 #include <sstream>
 #include <stdlib.h>
+#include <map>
 
    
 
@@ -15,7 +19,7 @@ class DataMemory{
 
   	void addToMemory(string s1,string s2);
 
- 	&string getData(int i);
+ 	string getData(int i);
 
   	void setMemory(string s1, string s2);
 
@@ -25,3 +29,4 @@ class DataMemory{
 
 	map<int,string> myContents;
 };
+#endif

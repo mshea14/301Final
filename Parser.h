@@ -1,3 +1,6 @@
+#ifndef Parser_h
+#define Parser_h
+
 using namespace std;
 
 #include <iostream>
@@ -5,6 +8,13 @@ using namespace std;
 #include <vector>
 #include <sstream>
 #include <stdlib.h>
+#include "RegisterFile.h"
+#include "Parser.h"
+#include "DataMemory.h"
+#include "ConfigFile.h"
+#include <string>
+#include <sstream>
+
 
 class Parser{
 
@@ -21,3 +31,4 @@ class Parser{
 	DataMemory parseMemory(string filename);
 
 };
+#endif

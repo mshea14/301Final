@@ -1,6 +1,6 @@
 #include "Parser.h"
 #include "RegisterFile.h"
-#include "DataMemory"
+#include "DataMemory.h"
 #include "ConfigFile.h"
 #include "math.h"
 #include "string.h"
@@ -31,7 +31,7 @@ void Parser::readAndPrintInstruction(int i, string filename){
 
 }
 
-&ConfigFile Parser::parseConfigFile(string filename){
+ConfigFile Parser::parseConfigFile(string filename){
 	
 	ifstream in;
   	in.open(filename.c_str());
@@ -58,7 +58,7 @@ void Parser::readAndPrintInstruction(int i, string filename){
     return &input;
 }
 
-&RegisterFile Parser::parseRegister(string filename){
+RegisterFile Parser::parseRegister(string filename){
 
 	ifstream in;
   	in.open(filename.c_str());

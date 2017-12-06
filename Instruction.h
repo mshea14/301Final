@@ -12,11 +12,6 @@
 
 
 class Instruction{
-
-
- public:
-  Instruction();
-    
     struct INS{
         
         string RegDst;
@@ -28,8 +23,14 @@ class Instruction{
         string Branch;
         string ALUOp1;
         string ALUOp0;
-    }
+        string Jump;
+    };
 
+
+ public:
+  Instruction();
+    
+   
 
   // You can specify all the fields to initialize the Instruction
   Instruction(Opcode op, Register rs, Register rt, Register rd, int imm);
@@ -45,7 +46,7 @@ class Instruction{
   Register getRT()     { return myRT; };
   int getImmediate()   { return myImmediate; };
   INS getControlValues() ;
-  void printControlLines();
+  void printControlValues();
 
   // Returns a string which represents all of the fields 
   string getString();
