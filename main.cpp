@@ -1,3 +1,4 @@
+#include "data.h"
 #include "ConfigFile.h"
 #include "Operation.h"
 #include "Multiplexor.h"
@@ -9,6 +10,7 @@
 #include "Opcode.h"
 #include <iostream> 
 #include <string>
+#include <cstdlib>
 
 
 void fetch(Instruction i);
@@ -204,7 +206,7 @@ void decode(Instruction i)
 	}
 
 
-	//REG DST
+	//MemtoReg
 	if(configFile.myDebugMode) cout << "Setting Multiplexor 3" << endl;
 	if(controlLines.MemtoReg.compare("X")!=0) cout << "MemToReg not used" << endl;
 	else
@@ -226,8 +228,50 @@ void decode(Instruction i)
 
 }
 void execute(Instruction i)
+
 {
+ALU aluAdd; //ALU 1
+ALU aluAddandResult; //ALU 2
+ALU aluALUandResult; //ALU 3
+Multiplexor registerMux;  //Mux
+Multiplexor registerOrImmMux;  //Mux
+Multiplexor memOrALUMux; //Mux
+Multiplexor branchOrAddMux; //Mux
+Multiplexor jumpOrAddMux; //Mux
+	OpcodeTable o;
+	if(i.getControlValues().RegDst != "X"){
+		registerMux.setInputOne(itoa((int)i.getRD()));
+		registerMux.setInputZero(itoa((int)i.getRT()));
+	} 
+	registerMux.execute();
+
+	registerOrImmMux.setInputOne(o.SignExtend(o.HexToBinary(o.IntToHex(i.getImmediate()))));
+	registerOrImmMux.setInputZero(itoa((int)i.getRT()));
+
+	registerOrImmMux.execute();
+
+	aluALUandResult.setOperand1(registerOrImmMux.getOutput());
+	aluALUandResult.setOperand2(itoa((int)i.getRS()));
+
+	if(i.getControlValues().MemToReg != "X"){
+		memOrALUMux.setInputOne(dataMem.getData(aluALUandResult.getOutput()));
+		memOrALUMux.setInputZero(aluALUandResult.getOutput());
+		memOrALUMux.execute();
+	} 
+
+	aluAddandResult.setOperand1(o.ShiftLeftTwo(o.SignExtend(o.HexToBinary(o.IntToHex(i.getImmediate())))));
+	aluAddandResult.setOperand2(programCounter.getAddress());	
 	
+	branchOrAddMux.setInputOne(aluAddandResult.runALU());
+	branchOrAddMux.setInputZero(programCounter.getAdress());
+	branchOrAddMux.execute();
+
+	jumpOrAddMux.setInputOne(programCounter.getAdress().substr(0,4)+o.ShiftLeftTwo(o.SignExtend(o.HexToBinary(o.IntToHex(i.getImmediate())))));
+	jumpOrAddMux.setInputZero(branchOrAddMux.getOutput());
+
+
+	
+
 
 }
 void memory(Instruction i)
