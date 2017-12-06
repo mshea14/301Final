@@ -39,6 +39,7 @@ ConfigFile Parser::parseConfigFile(string filename){
     
 
     vector<string> info (10);
+    vector<string> info1;
     while(getline(in, line)){
     	if(line[0] != '#' && line[0] != ' '){
     		    		stringstream info(line);
@@ -48,14 +49,14 @@ ConfigFile Parser::parseConfigFile(string filename){
 			while(getline(info, segment, ':')){
    				seglist.push_back(segment);
 			}
-			info.push_back(seglist[1]);
+			info1.push_back(seglist[1]);
     	}
     }
     bool bool1=true; bool bool2=true; bool bool3=true;
-    if(info[4]== "false") { bool1= false;}
-    if(info[5]== "false") { bool2= false;}
-    if(info[6]== "false") { bool3= false;}
-    ConfigFile input = ConfigFile(info[0], info[1], info[2], info[3], bool1, bool2, bool3, info[7]);
+    if(info1[4]== "false") { bool1= false;}
+    if(info1[5]== "false") { bool2= false;}
+    if(info1[6]== "false") { bool3= false;}
+    ConfigFile input = ConfigFile(info1[0], info1[1], info1[2], info1[3], bool1, bool2, bool3, info1[7]);
     return input;
 
 }

@@ -11,7 +11,7 @@ void RegisterFile::addToFile(string s){
 	myContents.push_back(s);
 }
 
-&string RegisterFile::getRegister(int i){
+string RegisterFile::getRegister(int i){
 	return myContents[i];
 }
 
