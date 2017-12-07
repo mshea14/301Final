@@ -150,9 +150,11 @@ int main(int argc, const char * argv[]) {
 		i = asmParse.getNextInstruction();
 		cout << "Instruction completed" << endl;
 		//batch mode or no batch mode 
+
 		if(configFile.myOutputMode.compare("single_step")==0){
             system("read");
         } 
+
   	}
   
 
@@ -277,8 +279,6 @@ void decode(Instruction i)
 		registerOrImmMux.setControl(controlLines.ALUSrc);
 	}
 
-
-
 }
 void execute(Instruction i)
 
@@ -290,9 +290,12 @@ void execute(Instruction i)
 	//r-type 
 	if(opcode.compare("000000")==0)
 	{
-
+		
 		functionField = op.getFunctField(i.getOpcode());
-		if(functionField.compare("100000")==0) aluAddandResult.runALU("add");
+		if(functionField.compare("100000")==0)
+		{
+			 aluAddandResult.runALU("add");
+		}
 		if(functionField.compare("100010")==0) aluAddandResult.runALU("subtract");
 		if(functionField.compare("101010")==0) aluAddandResult.runALU("less");
 
@@ -303,12 +306,16 @@ void execute(Instruction i)
 	}
 	
 
-
-	if(i.getControlValues(opcode).MemtoReg != "X"){
-		memOrALUMux.setInputOne(dataMem.getData(aluALUandResult.getOutput()));
+	if(i.getControlValues(opcode).MemtoReg == "0"){
+		memOrALUMux.setInputOne("00000000000000000000000000000000");
 		memOrALUMux.setInputZero(aluALUandResult.getOutput());
 		memOrALUMux.execute();
-	} 
+
+	} else if (i.getControlValues(opcode).MemtoReg == "0"){
+		memOrALUMux.setInputOne(dataMem.getData(aluALUandResult.getOutput());
+		memOrALUMux.setInputZero(aluALUandResult.getOutput());
+		memOrALUMux.execute();
+
 
 	aluAddandResult.setOperand1(o.ShiftLeftTwo(o.SignExtend(o.HexToBinary(o.IntToHex(i.getImmediate())))));
 	aluAddandResult.setOperand2(programCounter.getAddress());
@@ -321,14 +328,14 @@ void execute(Instruction i)
 	branchOrAddMux.execute();
 
 
+
+
 	//jump
 	jumpOrAddMux.setInputOne(programCounter.getAddress().substr(0,4)+o.ShiftLeftTwo(o.SignExtend(o.HexToBinary(o.IntToHex(i.getImmediate())))));
 	jumpOrAddMux.setInputZero(branchOrAddMux.getOutput());
 	jumpOrAddMux.execute();
 	programCounter.setAddress(jumpOrAddMux.getOutput());
 
-
-	
 
 
 }
