@@ -25,6 +25,7 @@ class DataMemory{
   	void setMemory(string s1, string s2);
 
   	void printDataMemory(string filename);
+    void printDataMemoryToTerminal(string filename);
 
 	protected:
 

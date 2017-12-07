@@ -29,3 +29,12 @@ void DataMemory::printDataMemory(string filename){
     	outputFile<< it->first << ":" << "0x"<< it->second << endl;
 	}	
 }
+
+void DataMemory::printDataMemoryToTerminal(string filename){
+	cout << "Data Memory Output" << endl;
+
+	for(auto it = myContents.cbegin(); it != myContents.cend(); ++it)
+	{
+    	cout<< it->first << ":" << "0x"<< it->second << endl;
+	}	
+}

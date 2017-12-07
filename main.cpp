@@ -120,9 +120,12 @@ int main(int argc, const char * argv[]) {
 		//if print memory contents is true, print out memory, register files
 		if(configFile.myPrintMemContent)  
 		{
-			cout << "Printing Mem Contents" << endl;
-			dataMem.printDataMemory();
-			registerFile.printRegisterFile();
+			if(configFile.myWriteToFile) dataMem.printDataMemory(configFile.myOutputFile);
+			dataMem.printDataMemoryToTerminal(configFile.myOutputFile);
+			cout << endl;
+			cout << "RegisterFile printing" << endl;
+			if(configFile.myWriteToFile) registerFile.printRegisterFile(configFile.myOutputFile);
+			registerFile.printRegisterFileTerminal(configFile.myOutputFile);
 			//print out instruction memory
 
 		}
@@ -131,12 +134,11 @@ int main(int argc, const char * argv[]) {
 		j++;
 
 		ASMParser asmParse1 = ASMParser(configFile.myProgramInput);
-		string startAddress = "0x00040000";
+		string startAddress = o.HexToBinary("0x00040000");
 		int counter = 1;
 		while(programCounter.getAddress()!= startAddress && counter < 20){
 
-
-			aluAdd.setOperand1(o.HexToBinary(startAddress));
+			aluAdd.setOperand1(startAddress);
 			aluAdd.setOperand2("00000000000000000000000000000100");
 			aluAdd.runALU("add");
 			startAddress = aluAdd.getOutput();
@@ -145,15 +147,16 @@ int main(int argc, const char * argv[]) {
 
 		}
 
-
 		i = asmParse.getNextInstruction();
+
 
   	}
   
 
 
 	//SET IF DEBUG OR WRITE TO FILE
-	
+		
+       	cout << "Program has concluded" << endl;
        	return 0;
 	 
 

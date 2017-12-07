@@ -19,12 +19,21 @@ void RegisterFile::setRegister(int i, string s){
 	myContents[i]= s;
 }
 
-void RegisterFile::printRegisterFile(){
-	ofstream outputFile ("output.txt");
+void RegisterFile::printRegisterFile(string filename){
+	ofstream outputFile (filename);
 
 	for(int i = 0; i <myContents.size(); i++){
 		outputFile << i << ":";
 		outputFile <<"0x";
 		outputFile << myContents[i] << endl;
+	}
+}
+
+void RegisterFile::printRegisterFileTerminal(string filename){
+
+	for(int i = 0; i <myContents.size(); i++){
+		cout << i << ":";
+		cout <<"0x";
+		cout << myContents[i] << endl;
 	}
 }

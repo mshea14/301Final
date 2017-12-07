@@ -27,7 +27,7 @@ string ALU::add(){
 
 	output = o.HexToBinary(o.IntToHex(sum));
 
-	if(debug) cout << "Output of add ALU: " << output << endl;
+	if(debug) cout << "Output of add ALU: " << o.BinaryToHex(output) << endl;
 
 	return output;
 
@@ -50,7 +50,7 @@ string ALU::sub(){
 
 	output = o.IntToHex(sum);
 
-	if(debug) cout << "Output of subtract ALU: " << output << endl;
+	if(debug) cout << "Output of subtract ALU: " << o.BinaryToHex(output) << endl;
 
 	return output;
 }
@@ -105,7 +105,7 @@ void ALU::setOperand2(string operand){
 string ALU::getOutput(){
 	if (debug){
 
-		cout << "ALU Output: " << output << endl;
+		cout << "ALU Output: " << o.BinaryToHex(output) << endl;
 	}
 	return output;
 }

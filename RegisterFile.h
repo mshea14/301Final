@@ -23,8 +23,8 @@ class RegisterFile{
 
   	void setRegister(int i, string s);
 
-  	void printRegisterFile();
-
+  	void printRegisterFileTerminal(string filename);
+    void printRegisterFile(string filename);
 	private:
 
 	vector<string> myContents;
