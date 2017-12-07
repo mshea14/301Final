@@ -1,13 +1,13 @@
 #ifndef Config_h
 #define Config_h
 
-using namespace std;
 
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <sstream>
 #include <stdlib.h>
+using namespace std;
 
    
 

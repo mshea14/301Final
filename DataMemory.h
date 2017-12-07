@@ -1,7 +1,7 @@
 #ifndef DataMemory_h
 #define DataMemory_h
 
-using namespace std;
+
 
 #include <iostream>
 #include <fstream>
@@ -9,6 +9,7 @@ using namespace std;
 #include <sstream>
 #include <stdlib.h>
 #include <map>
+using namespace std;
 
    
 
@@ -23,7 +24,7 @@ class DataMemory{
 
   	void setMemory(string s1, string s2);
 
-  	void printDataMemory();
+  	void printDataMemory(string filename);
 
 	protected:
 

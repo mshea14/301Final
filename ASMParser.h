@@ -1,7 +1,7 @@
 #ifndef __ASMPARSER_H__
 #define __ASMPARSER_H__
 
-using namespace std;
+
 
 #include <iostream>
 #include <fstream>
@@ -13,6 +13,7 @@ using namespace std;
 #include <stdlib.h>
 #include <bitset>
 
+using namespace std;
 
 /* This class reads in a MIPS assembly file and checks its syntax.  If
  * the file is syntactically correct, this class will retain a list 

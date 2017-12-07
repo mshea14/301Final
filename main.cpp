@@ -114,13 +114,16 @@ int main(int argc, const char * argv[]) {
 		execute(i);
 		memory(i);
 		writeback(i);
+
 	  
 
 		//if print memory contents is true, print out memory, register files
 		if(configFile.myPrintMemContent)  
 		{
+			cout << "Printing Mem Contents" << endl;
 			dataMem.printDataMemory();
 			registerFile.printRegisterFile();
+				cout << "Printing Mem Contents" << endl;
 			//print out instruction memory
 
 		}
@@ -203,14 +206,28 @@ void decode(Instruction i)
 	  cout <<  "Control Line - Branch: 0x" << controlLines.Branch << endl;
 	  cout <<  "Control Line - ALUOp1: 0x" << controlLines.ALUOp1 << endl;
 	  cout <<  "Control Line - ALUOp0: 0x" <<controlLines.ALUOp0 << endl;
-	  cout << "Control Line - Jump: 0x" <<controlLines.ALUOp0 << endl;
+	  cout << "Control Line - Jump: 0x" <<controlLines.Jump << endl;
 	
 
 	//send signals 
 
+	if(controlLines.RegDst != "X"){
+		registerMux.setInputOne(to_string((int)i.getRD()));
+		registerMux.setInputZero(to_string((int)i.getRT()));
+	} 
+	registerMux.execute();
+
+	registerOrImmMux.setInputOne(o.SignExtend(o.HexToBinary(o.IntToHex(i.getImmediate()))));
+	registerOrImmMux.setInputZero(to_string((int)i.getRT()));
+
+	registerOrImmMux.execute();
+
+	aluALUandResult.setOperand1(registerOrImmMux.getOutput());
+	aluALUandResult.setOperand2(to_string((int)i.getRS()));
+
 	//REG DST
 	if(configFile.myDebugMode) cout << "Setting Multiplexor 1" << endl;
-	if(controlLines.RegDst.compare("X")!=0) cout << "RegDest not used" << endl;
+	if(controlLines.RegDst.compare("X")==0) cout << "RegDest not used" << endl;
 	else 
 	{
 		registerMux.setControl(controlLines.RegDst);
@@ -220,7 +237,7 @@ void decode(Instruction i)
 
 	//JUMP
 	if(configFile.myDebugMode) cout << "Setting Jump Line" << endl;
-	if(controlLines.Jump.compare("X")!=0) cout << "Jump not used" << endl;
+	if(controlLines.Jump.compare("X")==0) cout << "Jump not used" << endl;
 	else 
 	{
 		jumpOrAddMux.setControl(controlLines.Jump);
@@ -228,7 +245,7 @@ void decode(Instruction i)
 
 	//BRANCH
 	if(configFile.myDebugMode) cout << "Setting Branch Line" << endl;
-	if(controlLines.Branch.compare("X")!=0) cout << "Branch not used" << endl;
+	if(controlLines.Branch.compare("X")==0) cout << "Branch not used" << endl;
 	else 
 	{
 		string controlForBranch;
@@ -241,7 +258,7 @@ void decode(Instruction i)
 
 	//MemtoReg
 	if(configFile.myDebugMode) cout << "Setting Multiplexor 3" << endl;
-	if(controlLines.MemtoReg.compare("X")!=0) cout << "MemToReg not used" << endl;
+	if(controlLines.MemtoReg.compare("X")==0) cout << "MemToReg not used" << endl;
 	else
 	{
 		memOrALUMux.setControl(controlLines.MemtoReg);
@@ -264,19 +281,7 @@ void execute(Instruction i)
 
 {
 
-	if(i.getControlValues(opcode).RegDst != "X"){
-		registerMux.setInputOne(to_string((int)i.getRD()));
-		registerMux.setInputZero(to_string((int)i.getRT()));
-	} 
-	registerMux.execute();
-
-	registerOrImmMux.setInputOne(o.SignExtend(o.HexToBinary(o.IntToHex(i.getImmediate()))));
-	registerOrImmMux.setInputZero(to_string((int)i.getRT()));
-
-	registerOrImmMux.execute();
-
-	aluALUandResult.setOperand1(registerOrImmMux.getOutput());
-	aluALUandResult.setOperand2(to_string((int)i.getRS()));
+	
 
 	//set operation
 	//r-type 
@@ -330,10 +335,6 @@ void memory(Instruction i)
 	{
 
 		dataMem.setMemory(aluALUandResult.getOutput(), registerFile.getRegister((int)i.getRS()));
-	}
-	if(i.getControlValues(opcode).MemRead == "1")
-	{
-		registerFile.setRegister((int)i.getRS(), dataMem.getData(aluALUandResult.getOutput()));
 	}
 
 }

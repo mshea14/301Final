@@ -21,8 +21,8 @@ void DataMemory::setMemory(string s1, string s2){
 	myContents.find(s1)->second= s2;
 }
 
-void DataMemory::printDataMemory(){
-	ofstream outputFile ("output.txt");
+void DataMemory::printDataMemory(string filename){
+	ofstream outputFile (filename);
 
 	for(auto it = myContents.cbegin(); it != myContents.cend(); ++it)
 	{

@@ -1,6 +1,6 @@
 #ifndef Register_h
 #define Register_h
-using namespace std;
+
 
 #include <iostream>
 #include <fstream>
@@ -9,7 +9,7 @@ using namespace std;
 #include <stdlib.h>
 #include <string>
 
-
+using namespace std;
    
 
 class RegisterFile{

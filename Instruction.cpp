@@ -87,7 +87,6 @@ Instruction::INS Instruction::getControlValues(string opcode){
     controlValues.Jump="0";
 
   }else if(opcode.compare("101011")==0){
-	controlValues.RegDst;
     controlValues.RegDst="X";
     controlValues.ALUSrc="1";
     controlValues.MemtoReg="X";
@@ -100,7 +99,7 @@ Instruction::INS Instruction::getControlValues(string opcode){
     controlValues.Jump="0";
 
   }else if(opcode.compare("000100")==0){
-	controlValues.RegDst;
+	
     controlValues.RegDst="X";
     controlValues.ALUSrc="0";
     controlValues.MemtoReg="X";
@@ -113,7 +112,6 @@ Instruction::INS Instruction::getControlValues(string opcode){
     controlValues.Jump="0";
 
   }else if(opcode.compare("001000")==0){
-	controlValues.RegDst;
     controlValues.RegDst="0";
     controlValues.ALUSrc="1";
     controlValues.MemtoReg="0";

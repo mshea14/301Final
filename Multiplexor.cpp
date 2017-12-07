@@ -20,7 +20,7 @@
 			cout << "Setting Multiplexor control to:   " << control<<  endl;
 		}
 
-		control = control;
+		control = this->control;
 
 		execute();
 	}
