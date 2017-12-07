@@ -51,11 +51,11 @@ Opcode OpcodeTable::getOpcode(string str)
 // Given a valid MIPS assembly mnemonic, returns an Opcode which represents a 
 // template for that instruction.
 {
-<<<<<<< HEAD
-   cout << "here" << endl;
-=======
 
->>>>>>> 7fabd18a35dd747f1b4e512364dc6e763439f094
+   cout << "here" << endl;
+
+
+
   for(int i = 0; i < (int)UNDEFINED; i++){
     cout << myArray[i].name << endl;
     if(myArray[i].name == str){

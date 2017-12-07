@@ -13,11 +13,7 @@ enum Opcode {
   LW,
   SW,
   BEQ,
-<<<<<<< HEAD
   J,
-=======
-  J, 
->>>>>>> 7fabd18a35dd747f1b4e512364dc6e763439f094
   SLT,
   UNDEFINED
 };

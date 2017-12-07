@@ -77,11 +77,7 @@ int main(int argc, const char * argv[]) {
 	ASMParser asmParse = ASMParser(configFile.myProgramInput);
 
 	
-<<<<<<< HEAD
-	if(asmParse.isFormatCorrect() == false){
-=======
 	 if(asmParse.isFormatCorrect() == false){
->>>>>>> 7fabd18a35dd747f1b4e512364dc6e763439f094
 	    cerr << "Format of input file is incorrect " << endl;
 	    exit(1);
 	 }
