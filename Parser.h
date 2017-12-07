@@ -1,6 +1,5 @@
 #ifndef Parser_h
 #define Parser_h
-
 #include <iostream>
 #include <fstream>
 #include <vector>

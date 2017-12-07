@@ -32,6 +32,7 @@ DataMemory dataMem;
 ConfigFile configFile;
 string currentAddress;
 
+
 //create new operation
 Operation o;
 
@@ -60,10 +61,12 @@ int main(int argc, const char * argv[]) {
     cerr << "Need to specify a config file to translate."<<endl;
     exit(1);
   	}
+	cout << argv[1] << endl;
 
-  	
+  	cout << "Valid File" << endl;
   	//create config file
-	 configFile= p.parseConfigFile(argv[2]);
+	 configFile= p.parseConfigFile(argv[1]);
+	 cout << "Found config file" << endl;
 
 	//create register file
 	registerFile = p.parseRegister(configFile.myRegisterInput);
@@ -72,21 +75,21 @@ int main(int argc, const char * argv[]) {
 	dataMem = p.parseMemory(configFile.myMemoryInput);
 
 	//create new parser
-	ASMParser *asmParse = new ASMParser(configFile.myProgramInput);
+	ASMParser asmParse = ASMParser(configFile.myProgramInput);
 
 
 
-	 if(asmParse->isFormatCorrect() == false){
+	 if(asmParse.isFormatCorrect() == false){
 	    cerr << "Format of input file is incorrect " << endl;
 	    exit(1);
 	 }
-
+	 
 
 	 //counter 
 	 int j=0;
 
 	//Iterate through instructions, printing each encoding.
-  	i = asmParse->getNextInstruction();
+  	i = asmParse.getNextInstruction();
   	while( i.getOpcode() != UNDEFINED){
     
 	
@@ -127,10 +130,10 @@ int main(int argc, const char * argv[]) {
 	memOrALUMux.SetDebugAndFile(configFile.myDebugMode, configFile.myWriteToFile);
 	branchOrAddMux.SetDebugAndFile(configFile.myDebugMode, configFile.myWriteToFile);
 	jumpOrAddMux.SetDebugAndFile(configFile.myDebugMode, configFile.myWriteToFile);
+	
 
-
-	return 0;
-
+       	return 0;
+	 
 
 }
 
