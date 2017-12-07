@@ -5,7 +5,6 @@
 #include "ALU.h"
 #include "ASMParser.h"
 #include "Instruction.h"
-#include "ALUControl.h"
 #include "PCounter.h"
 #include "Parser.h"
 #include "Opcode.h"

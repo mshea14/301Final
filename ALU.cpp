@@ -67,7 +67,7 @@ void ALU::compareEqual(string operand1, string operand2){
 
 //Compares two operands, returns true if first operand is smaller, false if larger
 
-void ALU::compareLessThan(){
+void ALU::compareLessThan(string operand1, string operand2){
 	if(o.cvtNumString2Number(o.BinaryToHex(operand1)) < o.cvtNumString2Number(o.BinaryToHex(operand2))){
 		if(debug){
 			cout << "Operand 1 is smaller than Operand 2" << endl;
