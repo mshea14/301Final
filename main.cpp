@@ -130,13 +130,12 @@ int main(int argc, const char * argv[]) {
 		string startAddress = "0x00040000";
 		int counter = 1;
 		while(programCounter.getAddress()!= startAddress && counter < 20){
-			cout << startAddress << endl;
+
 
 			aluAdd.setOperand1(o.HexToBinary(startAddress));
 			aluAdd.setOperand2("00000000000000000000000000000100");
 			aluAdd.runALU("add");
 			startAddress = aluAdd.getOutput();
-			cout << startAddress << endl;
 			i = asmParse1.getNextInstruction();
 			counter++;
 

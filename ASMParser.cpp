@@ -40,7 +40,6 @@ ASMParser::ASMParser(string filename)
 
       bool success = getOperands(i, o, operand, operand_count);
       if(!success){
-	cout << "here" << endl;
 	myFormatCorrect = false;
 	break;
       }
@@ -49,11 +48,8 @@ ASMParser::ASMParser(string filename)
       i.setEncoding(encoding);
 
       myInstructions.push_back(i);
-	cout << o << endl;
-	cout << "end while" << endl;
     }
   }
-  cout << "here" << endl;
   myIndex = 0;
 }
 

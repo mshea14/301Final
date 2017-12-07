@@ -45,7 +45,6 @@ ConfigFile Parser::parseConfigFile(string filename){
     vector<string> info;
     vector<string> info1(8);
     while(getline(in, line)){
-      cout <<"In while loop" << endl;
       cout << line <<endl;
     	if(line[0] != '#' && line[0] != '\0'){
     		    	stringstream info(line);
@@ -74,7 +73,6 @@ ConfigFile Parser::parseConfigFile(string filename){
 			    
     	}
     }
-    cout << "out of while loop" << endl;
     bool bool1=true; bool bool2=true; bool bool3=true;
     if(info1[4]== "false") { bool1= false;}
     if(info1[5]== "false") { bool2= false;}

@@ -3,6 +3,7 @@
 //starts off PC at 0x00400000
 PCounter::PCounter()
 {
+	cout << address << endl;
 	address = operate.HexToBinary("0x00040000");
 }
 
