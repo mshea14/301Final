@@ -336,7 +336,6 @@ void memory(Instruction i)
 {
 	if (i.getControlValues(opcode).MemWrite == "1")
 	{
-
 		dataMem.setMemory(aluALUandResult.getOutput(), registerFile.getRegister((int)i.getRS()));
 	}
 
