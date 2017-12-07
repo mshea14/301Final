@@ -1,3 +1,14 @@
+
+/*****************************************************************************
+ * ALU
+ * 
+ * This is the Arithmetic Logic Unit class of the non-pipeline processor.
+ * The Operand1 and Operand2 variables are set through their respective methods.
+ * The compare methods return value depends on how the two operands compare.
+ * The arithmetic methods (add & sub) return the sum & difference, respectively, 
+ * of the two operands as a 32-bit hexademical string.
+******************************************************************************/
+
 #ifndef ALU_h
 #define ALU_h
 
