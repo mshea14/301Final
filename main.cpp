@@ -148,15 +148,16 @@ int main(int argc, const char * argv[]) {
 		}
 
 		i = asmParse.getNextInstruction();
-
-
+		cout << "Instruction completed" << endl;
+		//batch mode or no batch mode 
+		if(configFile.myOutputMode.compare("single_step")==0){
+            system("read");
+        } 
   	}
   
 
-
-	//SET IF DEBUG OR WRITE TO FILE
-		
-       	cout << "Program has concluded" << endl;
+	//batch mode or no batch mode    	
+        cout << "Program has concluded" << endl;
        	return 0;
 	 
 

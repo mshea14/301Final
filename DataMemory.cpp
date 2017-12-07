@@ -28,6 +28,7 @@ void DataMemory::printDataMemory(string filename){
 	{
     	outputFile<< it->first << ":" << "0x"<< it->second << endl;
 	}	
+	outputFile.close();
 }
 
 void DataMemory::printDataMemoryToTerminal(string filename){

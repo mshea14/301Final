@@ -27,6 +27,7 @@ void RegisterFile::printRegisterFile(string filename){
 		outputFile <<"0x";
 		outputFile << myContents[i] << endl;
 	}
+	outputFile.close();
 }
 
 void RegisterFile::printRegisterFileTerminal(string filename){
