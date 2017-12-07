@@ -13,22 +13,23 @@ ALU::ALU(){
 //return hex value of addition
 string ALU::add(){
 	if(debug){
-		cout << "0th input to multiplexor: " << o.BinaryToHex(operand1ALU) << endl;
-		cout << "1st input to multiplexor: " << o.BinaryToHex(operand2ALU) << endl;
+		cout << "0th input to ALU: " << o.BinaryToHex(operand1ALU) << endl;
+		cout << "1st input to ALU: " << o.BinaryToHex(operand2ALU) << endl;
 	}
 
-
-
-	int temp1 = o.cvtNumString2Number( o.BinaryToHex(operand1ALU));
-	int temp2 = o.cvtNumString2Number(o.BinaryToHex(operand2ALU));
+	cout << operand1ALU << endl;
+	cout << operand2ALU << endl;
+	cout <<  o.HexToBinary(operand1ALU) << endl;
+	cout <<  o.HexToBinary(operand2ALU) << endl;
+	int temp1 = o.cvtNumString2Number( o.HexToBinary(operand1ALU));
+	int temp2 = o.cvtNumString2Number(o.HexToBinary(operand2ALU));
 
 	int sum = temp1 + temp2;
-	
 
-	output = o.HexToBinary(o.IntToHex(sum));
+
+	output = (o.IntToHex(sum));
 
 	if(debug) cout << "Output of add ALU: " << o.BinaryToHex(output) << endl;
-
 	return output;
 
 }
@@ -38,8 +39,8 @@ string ALU::add(){
 string ALU::sub(){
 
 	if(debug){
-		cout << "0th input to multiplexor: " << o.BinaryToHex(operand1ALU) << endl;
-		cout << "1st input to multiplexor: " << o.BinaryToHex(operand2ALU) << endl;
+		cout << "0th input to ALU: " << o.BinaryToHex(operand1ALU) << endl;
+		cout << "1st input to ALU: " << o.BinaryToHex(operand2ALU) << endl;
 	}
 
 	
