@@ -18,6 +18,7 @@ void fetch(Instruction i);
 void decode(Instruction i);
 void execute(Instruction i);
 void memory(Instruction i);
+void writeback(Instruction i);
 
 ALU aluAdd; //ALU 1
 ALU aluAddandResult; //ALU 2
@@ -112,6 +113,7 @@ int main(int argc, const char * argv[]) {
 		decode(i);
 		execute(i);
 		memory(i);
+		writeback(i);
 	  
 
 		//if print memory contents is true, print out memory, register files
@@ -334,6 +336,22 @@ void memory(Instruction i)
 		registerFile.setRegister((int)i.getRS(), dataMem.getData(aluALUandResult.getOutput()));
 	}
 
+}
+
+void writeback(Instruction i)
+{	
+	//rtype
+	if(opcode.compare("000000")==0)
+	{
+		registerFile.setRegister((int)i.getRD(), dataMem.getData(memOrALUMux.getOutput()));
+	}
+
+	//lw 
+	if(opcode.compare("100011")==0)
+	{
+		registerFile.setRegister((int)i.getRT(), dataMem.getData(memOrALUMux.getOutput()));
+
+	}
 }
 
 
