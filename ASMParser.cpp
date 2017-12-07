@@ -11,7 +11,6 @@ ASMParser::ASMParser(string filename)
   myFormatCorrect = true;
 
   myLabelAddress = 0x400000;
-
   ifstream in;
   in.open(filename.c_str());
   if(in.bad()){
@@ -23,7 +22,6 @@ ASMParser::ASMParser(string filename)
       string opcode("");
       string operand[80];
       int operand_count = 0;
-
       getTokens(line, opcode, operand, operand_count);
 
       if(opcode.length() == 0 && operand_count != 0){

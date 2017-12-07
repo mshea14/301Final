@@ -13,7 +13,8 @@ enum Opcode {
   LW,
   SW,
   BEQ,
-  J, 
+  J,
+  SLT,
   UNDEFINED
 };
 

@@ -77,12 +77,12 @@ int main(int argc, const char * argv[]) {
 	//create new parser
 	ASMParser asmParse = ASMParser(configFile.myProgramInput);
 
-
-
-	 if(asmParse.isFormatCorrect() == false){
+	
+	if(asmParse.isFormatCorrect() == false){
 	    cerr << "Format of input file is incorrect " << endl;
 	    exit(1);
 	 }
+	
 	 
 
 	 //counter 
