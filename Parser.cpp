@@ -62,7 +62,7 @@ ConfigFile Parser::parseConfigFile(string filename){
 			    info1[2]=seglist[1];
 			} else if(seglist[0]== "output_mode"){
 			    info1[3]=seglist[1];
-			}else if(seglist[0]== "debug_mode){
+			}else if(seglist[0]== "debug_mode"){
 			    info1[4]=seglist[1];
 			}else if(seglist[0]== "print_memory_contents"){
 			    info1[5]=seglist[1];
