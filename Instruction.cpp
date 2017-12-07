@@ -56,12 +56,13 @@ string Instruction::getString()
 
 
 
-Instruction::INS Instruction::getControlValues(){
+Instruction::INS Instruction::getControlValues(string opcode){
   INS controlValues;
   OpcodeTable opcodeTab;
 
   //RTYPE 
-  if(stoi(opcodeTab.getOpcodeField(this-> myOpcode))==000000){
+  if(opcode.compare("000000")==0){
+	
     controlValues.RegDst="1";
     controlValues.ALUSrc="0";
     controlValues.MemtoReg="0";
@@ -72,7 +73,8 @@ Instruction::INS Instruction::getControlValues(){
     controlValues.ALUOp1="1";
     controlValues.ALUOp0="0";
     controlValues.Jump="0";
-  } else if(stoi(opcodeTab.getOpcodeField(this-> myOpcode)) == 100011){
+
+  } else if(opcode.compare("100011")==0){
     controlValues.RegDst="0";
     controlValues.ALUSrc="1";
     controlValues.MemtoReg="1";
@@ -83,7 +85,9 @@ Instruction::INS Instruction::getControlValues(){
     controlValues.ALUOp1="0";
     controlValues.ALUOp0="0";
     controlValues.Jump="0";
-  }else if(stoi(opcodeTab.getOpcodeField(this-> myOpcode)) == 101011){
+
+  }else if(opcode.compare("101011")==0){
+	controlValues.RegDst;
     controlValues.RegDst="X";
     controlValues.ALUSrc="1";
     controlValues.MemtoReg="X";
@@ -94,7 +98,9 @@ Instruction::INS Instruction::getControlValues(){
     controlValues.ALUOp1="0";
     controlValues.ALUOp0="0";
     controlValues.Jump="0";
-  }else if(stoi(opcodeTab.getOpcodeField(this-> myOpcode)) == 000100){
+
+  }else if(opcode.compare("000100")==0){
+	controlValues.RegDst;
     controlValues.RegDst="X";
     controlValues.ALUSrc="0";
     controlValues.MemtoReg="X";
@@ -105,7 +111,9 @@ Instruction::INS Instruction::getControlValues(){
     controlValues.ALUOp1="0";
     controlValues.ALUOp0="1";
     controlValues.Jump="0";
-  }else if(stoi(opcodeTab.getOpcodeField(this-> myOpcode))== 001000){
+
+  }else if(opcode.compare("001000")==0){
+	controlValues.RegDst;
     controlValues.RegDst="0";
     controlValues.ALUSrc="1";
     controlValues.MemtoReg="0";
@@ -116,9 +124,11 @@ Instruction::INS Instruction::getControlValues(){
     controlValues.ALUOp1="0";
     controlValues.ALUOp0="0";
     controlValues.Jump="0";
+
   }
   //jump
-  else if(stoi(opcodeTab.getOpcodeField(this-> myOpcode))== 000010){
+  else if(opcode.compare("000010")==0){
+ 
     controlValues.RegDst="X";
     controlValues.ALUSrc="X";
     controlValues.MemtoReg="X";
@@ -129,6 +139,7 @@ Instruction::INS Instruction::getControlValues(){
     controlValues.ALUOp1="X";
     controlValues.ALUOp0="X";
     controlValues.Jump="1";
+
   }
 
   return controlValues;
@@ -136,16 +147,4 @@ Instruction::INS Instruction::getControlValues(){
 }
 
 
-void Instruction::printControlValues(){
-    //print control lines
-  cout <<  "Control Line - RegDst: 0x" << this->myControlValues.RegDst << endl;
-  cout <<  "Control Line - ALUSrc: 0x" << this->myControlValues.ALUSrc << endl;
-  cout <<  "Control Line - MemToReg: 0x" << this->myControlValues.MemtoReg << endl;
-  cout <<  "Control Line - RegWrite: 0x" <<this->myControlValues.Regwrite << endl;
-  cout <<  "Control Line - MemRead: 0x" << this->myControlValues.MemRead << endl;
-  cout <<  "Control Line - MemWrite: 0x" << this->myControlValues.MemWrite << endl;
-  cout <<  "Control Line - Branch: 0x" << this->myControlValues.Branch << endl;
-  cout <<  "Control Line - ALUOp1: 0x" << this->myControlValues.ALUOp1 << endl;
-  cout <<  "Control Line - ALUOp0: 0x" <<this->myControlValues.ALUOp0 << endl;
-  cout << "Control Line - Jump: 0x" <<this->myControlValues.ALUOp0 << endl;
-}
+

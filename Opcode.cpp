@@ -21,12 +21,12 @@ OpcodeTable::OpcodeTable()
 
 
   myArray[LW].name = "lw";  
-  myArray[LW].numOps = 2;   myArray[LW].rdPos = -1;  myArray[LW].rsPos = -1;  myArray[LW].rtPos = 0;   myArray[LW].immPos = 1;  
+  myArray[LW].numOps = 3;   myArray[LW].rdPos = -1;  myArray[LW].rsPos = 2;  myArray[LW].rtPos = 0;   myArray[LW].immPos = 1;  
   myArray[LW].instType = ITYPE; myArray[LW].op_field = "100011"; myArray[LW].funct_field = "";
 
 
-  myArray[SW].name = "sw";  myArray[SW].numOps = 2;   myArray[SW].rdPos = -1;  
-  myArray[SW].rsPos = -1;  myArray[SW].rtPos = 0;   myArray[SW].immPos = 1;  
+  myArray[SW].name = "sw";  myArray[SW].numOps = 3;   myArray[SW].rdPos = -1;  
+  myArray[SW].rsPos = 2;  myArray[SW].rtPos = 0;   myArray[SW].immPos = 1;  
   myArray[SW].instType = ITYPE; myArray[SW].op_field = "101011"; myArray[SW].funct_field = "";
 
 
@@ -39,9 +39,9 @@ OpcodeTable::OpcodeTable()
   myArray[J].rsPos = -1;  myArray[J].rtPos = -1;   myArray[J].immPos = -1;  
   myArray[J].instType = JTYPE; myArray[J].op_field ="000010"; myArray[J].funct_field = ""; myArray[J].immLabel=0;
 
-  myArray[SUB].name = "slt";  
-  myArray[SUB].numOps = 3;   myArray[SUB].rdPos = 0;  myArray[SUB].rtPos = 2;  myArray[SUB].rsPos = 1; myArray[SUB].immPos = -1;  
-  myArray[SUB].instType = RTYPE; myArray[SUB].op_field = "000000"; myArray[SUB].funct_field = "101010";
+  myArray[SLT].name = "slt";  
+  myArray[SLT].numOps = 3;   myArray[SLT].rdPos = 0;  myArray[SLT].rtPos = 2;  myArray[SLT].rsPos = 1; myArray[SLT].immPos = -1;  
+  myArray[SLT].instType = RTYPE; myArray[SLT].op_field = "000000"; myArray[SLT].funct_field = "101010";
 
 
 
@@ -51,8 +51,11 @@ Opcode OpcodeTable::getOpcode(string str)
 // Given a valid MIPS assembly mnemonic, returns an Opcode which represents a 
 // template for that instruction.
 {
+
   for(int i = 0; i < (int)UNDEFINED; i++){
     if(myArray[i].name == str){
+	//cout << myArray[i].op_field<< endl;
+	
       return (Opcode)i;
     }
   }

@@ -14,7 +14,7 @@ enum Opcode {
   SW,
   BEQ,
   J, 
-  SLT,
+
   UNDEFINED
 };
 

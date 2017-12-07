@@ -32,7 +32,7 @@
 		
 		if(debug)
 		{
-			cout << "1 input to Multiplexor: " << input << endl;
+			cout << "1 input to Multiplexor: " << o.BinaryToHex(input) << endl;
 		}
 		
 		input1 = input;
@@ -46,7 +46,7 @@
 	
 		if(debug)
 		{
-			cout << "0 input to Multiplexor" << input << endl;
+			cout << "0 input to Multiplexor" << o.BinaryToHex(input) << endl;
 		}
 		
 		input0 = input;
