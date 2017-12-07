@@ -93,7 +93,7 @@ int main(int argc, const char * argv[]) {
   	i = asmParse.getNextInstruction();
 	
   	while( i.getOpcode() != UNDEFINED){
-    		o.SetDebugAndFile(configFile.myDebugMode, configFile.myWriteToFile);
+    	o.SetDebugAndFile(configFile.myDebugMode, configFile.myWriteToFile);
 		aluAdd.SetDebugAndFile(configFile.myDebugMode, configFile.myWriteToFile); 
 		aluAddandResult.SetDebugAndFile(configFile.myDebugMode, configFile.myWriteToFile);
 		aluALUandResult.SetDebugAndFile(configFile.myDebugMode, configFile.myWriteToFile); 
@@ -123,7 +123,6 @@ int main(int argc, const char * argv[]) {
 			cout << "Printing Mem Contents" << endl;
 			dataMem.printDataMemory();
 			registerFile.printRegisterFile();
-				cout << "Printing Mem Contents" << endl;
 			//print out instruction memory
 
 		}
