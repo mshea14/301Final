@@ -23,15 +23,16 @@ ASMParser::ASMParser(string filename)
       string operand[80];
       int operand_count = 0;
       getTokens(line, opcode, operand, operand_count);
-
+	
+	
       if(opcode.length() == 0 && operand_count != 0){
 	// No opcode but operands
 	myFormatCorrect = false;
 	break;
       }
-
       Opcode o = opcodes.getOpcode(opcode);      
       if(o == UNDEFINED){
+	
 	// invalid opcode specified
 	myFormatCorrect = false;
 	break;
@@ -39,6 +40,7 @@ ASMParser::ASMParser(string filename)
 
       bool success = getOperands(i, o, operand, operand_count);
       if(!success){
+	cout << "here" << endl;
 	myFormatCorrect = false;
 	break;
       }
@@ -47,10 +49,11 @@ ASMParser::ASMParser(string filename)
       i.setEncoding(encoding);
 
       myInstructions.push_back(i);
-
+	cout << o << endl;
+	cout << "end while" << endl;
     }
   }
-
+  cout << "here" << endl;
   myIndex = 0;
 }
 

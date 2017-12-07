@@ -39,8 +39,8 @@ public:
     bool comparedResult;
     
     string output;
-    string operand1;
-    string operand2;
+    string operand1ALU;
+    string operand2ALU;
     bool debug;
     bool writeToFile;
 

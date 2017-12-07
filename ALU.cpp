@@ -16,11 +16,16 @@ string ALU::add(string operand1, string operand2){
 		cout << "0th input to multiplexor: " << o.BinaryToHex(operand1) << endl;
 		cout << "1st input to multiplexor: " << o.BinaryToHex(operand2) << endl;
 	}
-	
-	int temp1 = o.cvtNumString2Number(operand1);
-	int temp2 = o.cvtNumString2Number(operand2);
+	operand1ALU=operand1;
+	operand2ALU=operand2;
+
+	cout << operand1 << endl;
+	int temp1 = o.cvtNumString2Number( o.BinaryToHex(operand1));
+	int temp2 = o.cvtNumString2Number(o.BinaryToHex(operand2));
 
 	int sum = temp1 + temp2;
+	cout << temp1 << endl;
+	
 
 	output = o.IntToHex(sum);
 
@@ -38,9 +43,13 @@ string ALU::sub(string operand1, string operand2){
 		cout << "0th input to multiplexor: " << o.BinaryToHex(operand1) << endl;
 		cout << "1st input to multiplexor: " << o.BinaryToHex(operand2) << endl;
 	}
+	operand1ALU=operand1;
+	operand2ALU=operand2;
+
+cout << operand1ALU << endl;
 	
-	int temp1 = o.cvtNumString2Number(operand1);
-	int temp2 = o.cvtNumString2Number(operand2);
+	int temp1 = o.cvtNumString2Number(o.BinaryToHex(operand1));
+	int temp2 = o.cvtNumString2Number(o.BinaryToHex(operand2));
 
 	int sum = temp1 - temp2;
 
@@ -53,7 +62,8 @@ string ALU::sub(string operand1, string operand2){
 
 //takes in two binary strings and compares them 
 void ALU::compareEqual(string operand1, string operand2){
-
+operand1ALU=operand1;
+	operand2ALU=operand2;
 	if(operand1.compare(operand2) != 0){
 		if (debug) cout << "The strings are not equal" << endl;
 		comparedResult = false;
@@ -68,6 +78,8 @@ void ALU::compareEqual(string operand1, string operand2){
 //Compares two operands, returns true if first operand is smaller, false if larger
 
 void ALU::compareLessThan(string operand1, string operand2){
+operand1ALU=operand1;
+	operand2ALU=operand2;
 	if(o.cvtNumString2Number(o.BinaryToHex(operand1)) < o.cvtNumString2Number(o.BinaryToHex(operand2))){
 		if(debug){
 			cout << "Operand 1 is smaller than Operand 2" << endl;
@@ -83,7 +95,7 @@ void ALU::compareLessThan(string operand1, string operand2){
 void ALU::setOperand1(string operand){
 	if(debug){
 		cout << "Setting Operand1 to: " << o.BinaryToHex(operand) << endl;
-		operand1 = operand;
+		operand1ALU = operand;
 	}
 }
 
@@ -91,13 +103,14 @@ void ALU::setOperand1(string operand){
 void ALU::setOperand2(string operand){
 	if(debug){
 		cout << "Setting Operand2 to: " << o.BinaryToHex(operand) << endl;
-		operand2 = operand;
+		operand2ALU = operand;
 	}
 }
 
 string ALU::getOutput(){
 	if (debug){
-		cout << "ALU Output: " << o.BinaryToHex(output) << endl;
+
+		cout << "ALU Output: " << output << endl;
 	}
 	return output;
 }
@@ -120,30 +133,30 @@ void ALU::runALU(string op)
 {
 	if(debug) 
 	{
-		cout << "Input 0 to ALU" << o.BinaryToHex(operand1) << endl;
-		cout << "Input 1 to ALU" << o.BinaryToHex(operand2) << endl;
+		cout << "Input 0 to ALU" << o.BinaryToHex(operand1ALU) << endl;
+		cout << "Input 1 to ALU" << o.BinaryToHex(operand2ALU) << endl;
 	}
 
 
 	if(op.compare("add")==0)
 	{
 		if(debug) cout << "ALU adding" << endl;
-		add(operand1, operand2);
+		add(operand1ALU, operand2ALU);
 	}
 	else if(op.compare("less")==0)
 	{
 		if(debug) cout << "ALU checking less than or equal" << endl;
-		compareLessThan(operand1, operand2);		
+		compareLessThan(operand1ALU, operand2ALU);		
 	}
 	else if(op.compare("equal")==0)
 	{
 		if(debug) cout << "ALU checking equality" << endl;
-		compareEqual(operand1, operand2);
+		compareEqual(operand1ALU, operand2ALU);
 	}
 	else if(op.compare("subtract")==0)
 	{
 		if(debug) cout << "ALU subtracting" << endl;
-		sub(operand1, operand2);
+		sub(operand1ALU, operand2ALU);
 	}
 
 }

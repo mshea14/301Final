@@ -61,7 +61,6 @@ int main(int argc, const char * argv[]) {
     cerr << "Need to specify a config file to translate."<<endl;
     exit(1);
   	}
-	cout << argv[1] << endl;
 
   	cout << "Valid File" << endl;
   	//create config file
@@ -70,15 +69,19 @@ int main(int argc, const char * argv[]) {
 
 	//create register file
 	registerFile = p.parseRegister(configFile.myRegisterInput);
-
+	
 	//create Data Memory
 	dataMem = p.parseMemory(configFile.myMemoryInput);
-
+	
 	//create new parser
 	ASMParser asmParse = ASMParser(configFile.myProgramInput);
 
 	
+<<<<<<< HEAD
 	if(asmParse.isFormatCorrect() == false){
+=======
+	 if(asmParse.isFormatCorrect() == false){
+>>>>>>> 7fabd18a35dd747f1b4e512364dc6e763439f094
 	    cerr << "Format of input file is incorrect " << endl;
 	    exit(1);
 	 }
@@ -87,17 +90,28 @@ int main(int argc, const char * argv[]) {
 
 	 //counter 
 	 int j=0;
-
+	
+	
 	//Iterate through instructions, printing each encoding.
   	i = asmParse.getNextInstruction();
+	
   	while( i.getOpcode() != UNDEFINED){
-    
+    		o.SetDebugAndFile(configFile.myDebugMode, configFile.myWriteToFile);
+		aluAdd.SetDebugAndFile(configFile.myDebugMode, configFile.myWriteToFile); 
+		aluAddandResult.SetDebugAndFile(configFile.myDebugMode, configFile.myWriteToFile);
+		aluALUandResult.SetDebugAndFile(configFile.myDebugMode, configFile.myWriteToFile); 
+		registerMux.SetDebugAndFile(configFile.myDebugMode, configFile.myWriteToFile); 
+		registerOrImmMux.SetDebugAndFile(configFile.myDebugMode, configFile.myWriteToFile);
+		memOrALUMux.SetDebugAndFile(configFile.myDebugMode, configFile.myWriteToFile);
+		branchOrAddMux.SetDebugAndFile(configFile.myDebugMode, configFile.myWriteToFile);
+		jumpOrAddMux.SetDebugAndFile(configFile.myDebugMode, configFile.myWriteToFile);
 	
 
+		
 	    //print out instruction being executed
 		p.readAndPrintInstruction(j, configFile.myProgramInput);
 
-
+	
 		fetch(i);
 		decode(i);
 		execute(i);
@@ -116,22 +130,31 @@ int main(int argc, const char * argv[]) {
 		//increment up register file 
 		j++;
 
+		ASMParser asmParse1 = ASMParser(configFile.myProgramInput);
+		string startAddress = "0x00040000";
+		int counter = 1;
+		while(programCounter.getAddress()!= startAddress && counter < 20){
+			cout << startAddress << endl;
+
+			aluAdd.setOperand1(o.HexToBinary(startAddress));
+			aluAdd.setOperand2("00000000000000000000000000000100");
+			aluAdd.runALU("add");
+			startAddress = aluAdd.getOutput();
+			cout << startAddress << endl;
+			i = asmParse1.getNextInstruction();
+			counter++;
+
+		}
+
+
+		i = asmParse.getNextInstruction();
+
   	}
   
 
 
 	//SET IF DEBUG OR WRITE TO FILE
-	o.SetDebugAndFile(configFile.myDebugMode, configFile.myWriteToFile);
-	aluAdd.SetDebugAndFile(configFile.myDebugMode, configFile.myWriteToFile); 
-	aluAddandResult.SetDebugAndFile(configFile.myDebugMode, configFile.myWriteToFile);
-	aluALUandResult.SetDebugAndFile(configFile.myDebugMode, configFile.myWriteToFile); 
-	registerMux.SetDebugAndFile(configFile.myDebugMode, configFile.myWriteToFile); 
-	registerOrImmMux.SetDebugAndFile(configFile.myDebugMode, configFile.myWriteToFile);
-	memOrALUMux.SetDebugAndFile(configFile.myDebugMode, configFile.myWriteToFile);
-	branchOrAddMux.SetDebugAndFile(configFile.myDebugMode, configFile.myWriteToFile);
-	jumpOrAddMux.SetDebugAndFile(configFile.myDebugMode, configFile.myWriteToFile);
 	
-
        	return 0;
 	 
 
@@ -146,7 +169,7 @@ void fetch(Instruction i)
 	currentAddress =programCounter.getAddress();
 	aluAdd.setOperand1(currentAddress);
 	aluAdd.setOperand2("00000000000000000000000000000100");
-	aluAdd.add(currentAddress, "00000000000000000000000000000100");
+	aluAdd.runALU("add");
 	programCounter.setAddress(aluAdd.getOutput());
 	    
 	    
@@ -171,10 +194,20 @@ void fetch(Instruction i)
 void decode(Instruction i)
 {
 	//get control values 
-	Instruction::INS controlLines = i.getControlValues();
+	Instruction::INS controlLines = i.getControlValues(opcode);
 
 	//print control lines
-	i.printControlValues();
+	cout <<  "Control Line - RegDst: 0x" << controlLines.RegDst << endl;
+	  cout <<  "Control Line - ALUSrc: 0x" << controlLines.ALUSrc << endl;
+	  cout <<  "Control Line - MemToReg: 0x" << controlLines.MemtoReg << endl;
+	  cout <<  "Control Line - RegWrite: 0x" <<controlLines.Regwrite << endl;
+	  cout <<  "Control Line - MemRead: 0x" << controlLines.MemRead << endl;
+	  cout <<  "Control Line - MemWrite: 0x" <<controlLines.MemWrite << endl;
+	  cout <<  "Control Line - Branch: 0x" << controlLines.Branch << endl;
+	  cout <<  "Control Line - ALUOp1: 0x" << controlLines.ALUOp1 << endl;
+	  cout <<  "Control Line - ALUOp0: 0x" <<controlLines.ALUOp0 << endl;
+	  cout << "Control Line - Jump: 0x" <<controlLines.ALUOp0 << endl;
+	
 
 	//send signals 
 
@@ -234,7 +267,7 @@ void execute(Instruction i)
 
 {
 
-	if(i.getControlValues().RegDst != "X"){
+	if(i.getControlValues(opcode).RegDst != "X"){
 		registerMux.setInputOne(to_string((int)i.getRD()));
 		registerMux.setInputZero(to_string((int)i.getRT()));
 	} 
@@ -266,7 +299,7 @@ void execute(Instruction i)
 	
 
 
-	if(i.getControlValues().MemtoReg != "X"){
+	if(i.getControlValues(opcode).MemtoReg != "X"){
 		memOrALUMux.setInputOne(dataMem.getData(aluALUandResult.getOutput()));
 		memOrALUMux.setInputZero(aluALUandResult.getOutput());
 		memOrALUMux.execute();
@@ -296,12 +329,12 @@ void execute(Instruction i)
 }
 void memory(Instruction i)
 {
-	if (i.getControlValues().MemWrite == "1")
+	if (i.getControlValues(opcode).MemWrite == "1")
 	{
 
 		dataMem.setMemory(aluALUandResult.getOutput(), registerFile.getRegister((int)i.getRS()));
 	}
-	if(i.getControlValues().MemRead == "1")
+	if(i.getControlValues(opcode).MemRead == "1")
 	{
 		registerFile.setRegister((int)i.getRS(), dataMem.getData(aluALUandResult.getOutput()));
 	}

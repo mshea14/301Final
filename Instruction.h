@@ -47,8 +47,8 @@ class Instruction{
   Register getRD()     { return myRD; };
   Register getRT()     { return myRT; };
   int getImmediate()   { return myImmediate; };
-  INS getControlValues() ;
-  void printControlValues();
+  INS getControlValues(string opcode) ;
+
 
   // Returns a string which represents all of the fields 
   string getString();

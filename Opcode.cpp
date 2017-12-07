@@ -21,12 +21,12 @@ OpcodeTable::OpcodeTable()
 
 
   myArray[LW].name = "lw";  
-  myArray[LW].numOps = 2;   myArray[LW].rdPos = -1;  myArray[LW].rsPos = -1;  myArray[LW].rtPos = 0;   myArray[LW].immPos = 1;  
+  myArray[LW].numOps = 3;   myArray[LW].rdPos = -1;  myArray[LW].rsPos = 2;  myArray[LW].rtPos = 0;   myArray[LW].immPos = 1;  
   myArray[LW].instType = ITYPE; myArray[LW].op_field = "100011"; myArray[LW].funct_field = "";
 
 
-  myArray[SW].name = "sw";  myArray[SW].numOps = 2;   myArray[SW].rdPos = -1;  
-  myArray[SW].rsPos = -1;  myArray[SW].rtPos = 0;   myArray[SW].immPos = 1;  
+  myArray[SW].name = "sw";  myArray[SW].numOps = 3;   myArray[SW].rdPos = -1;  
+  myArray[SW].rsPos = 2;  myArray[SW].rtPos = 0;   myArray[SW].immPos = 1;  
   myArray[SW].instType = ITYPE; myArray[SW].op_field = "101011"; myArray[SW].funct_field = "";
 
 
@@ -51,10 +51,16 @@ Opcode OpcodeTable::getOpcode(string str)
 // Given a valid MIPS assembly mnemonic, returns an Opcode which represents a 
 // template for that instruction.
 {
+<<<<<<< HEAD
    cout << "here" << endl;
+=======
+
+>>>>>>> 7fabd18a35dd747f1b4e512364dc6e763439f094
   for(int i = 0; i < (int)UNDEFINED; i++){
     cout << myArray[i].name << endl;
     if(myArray[i].name == str){
+	//cout << myArray[i].op_field<< endl;
+	
       return (Opcode)i;
     }
   }
