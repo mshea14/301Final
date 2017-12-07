@@ -120,10 +120,10 @@
 		{
 			cout << "Input to Sign Extend: " << BinaryToHex(str) << endl;
 		}
-		string substring = str.substr(0,1);
+		string  substring = str.substr(0,1);
 		while(str.length()!=32)
 		{
-			str.append(substring,0);
+		  str= "0"+ str;
 		}
 
 		if(debug)

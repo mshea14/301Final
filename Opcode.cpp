@@ -39,7 +39,7 @@ OpcodeTable::OpcodeTable()
   myArray[J].rsPos = -1;  myArray[J].rtPos = -1;   myArray[J].immPos = -1;  
   myArray[J].instType = JTYPE; myArray[J].op_field ="000010"; myArray[J].funct_field = ""; myArray[J].immLabel=0;
 
-  yArray[SUB].name = "slt";  
+  myArray[SUB].name = "slt";  
   myArray[SUB].numOps = 3;   myArray[SUB].rdPos = 0;  myArray[SUB].rtPos = 2;  myArray[SUB].rsPos = 1; myArray[SUB].immPos = -1;  
   myArray[SUB].instType = RTYPE; myArray[SUB].op_field = "000000"; myArray[SUB].funct_field = "101010";
 
